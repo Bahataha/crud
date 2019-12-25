@@ -1,0 +1,54 @@
+<?php
+
+namespace DummyNamespace;
+
+use DummyFullModelClass;
+use Duke\CrudGenerator\Concerns\FromCollection;
+use Duke\CrudGenerator\Concerns\ShouldAutoSize;
+use Duke\CrudGenerator\Concerns\WithEvents;
+use Duke\CrudGenerator\Concerns\WithHeadingRow;
+use Duke\CrudGenerator\Concerns\WithHeadings;
+use Duke\CrudGenerator\Events\AfterSheet;
+
+class DummyClass implements FromCollection, ShouldAutoSize, WithEvents, WithHeadingRow, WithHeadings
+{
+    public $date;
+
+    public function __construct($date)
+    {
+        $this->date = $date;
+    }
+
+    /**
+    * @return \Illuminate\Support\Collection
+    */
+    public function collection()
+    {
+        return DummyModelClass::all();
+    }
+    public function headings(): array
+        {
+            return [
+                'ID',
+                /*
+                |
+                |
+                |
+                */
+                'Дата'
+            ];
+        }
+
+        /**
+         * @return array
+         */
+        public function registerEvents(): array
+        {
+            return [
+                AfterSheet::class    => function(AfterSheet $event) {
+                    $cellRange = 'A1:Z1'; // All headers
+                    $event->sheet->getDelegate()->getStyle($cellRange)->getFont()->setSize(11)->setBold(true);
+                },
+            ];
+        }
+}
