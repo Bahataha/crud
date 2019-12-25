@@ -1,94 +1,63 @@
 @extends('layouts.app')
 
 @section('content')
+    <div class="container">
+        <div class="row">
+            @include('admin.sidebar')
 
-    <div class="bodytext">
-        <div class="head">
-            <h2>Пользователи</h2>
-            <a href="{{ url('/%%routeGroup%%%%viewName%%/create') }}">Добавить</a>
-        </div>
-        <div class="filter">
-            <div class="svg">
-                <svg xmlns="http://www.w3.org/2000/svg" width="19.202" height="19.937" viewBox="0 0 19.202 19.937">
-                    <path id="funnel" d="M20.159,2.688C20.159.923,15.329,0,10.558,0S.957.923.957,2.688a1.362,1.362,0,0,0,.69,1.069L8.254,12.8v6.73l.024.408h.384l.176-.007L12.862,15.9V12.8l6.607-9.041A1.362,1.362,0,0,0,20.159,2.688Zm-9.6-1.92c5.392,0,8.833,1.137,8.833,1.92s-3.441,1.92-8.833,1.92S1.725,3.471,1.725,2.688,5.166.768,10.558.768Z" transform="translate(-0.957)" fill="#1e202a"/>
-                </svg>
-            </div>
-            <div class="filterdate">
-                <p class="gray">Фильтр по дате</p>
-                <div class="flex">
-                    <div class="left">
-                        <form method="GET" action="{{ url('/%%routeGroup%%%%viewName%%') }}" class="form-act" accept-charset="UTF-8" role="search">
-                            <label class="search-date">
-                                <input type="date" name="date-from" value="{{ request('date-from') }}">
-                                <input type="date" name="date-to" class="data-to" value="{{ request('date-to') }}">
-                            </label>
-                            <span>
-                                <button type="submit">
-                                    <i class="fa fa-search"></i>
-                                </button>
-                            </span>
-                        </form>
-                        <a href="#" class="export-import">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="9.027" height="12.035" viewBox="0 0 9.027 12.035">
-                                <g id="export" transform="translate(-68.891 0)">
-                                    <path d="M77.541,172.228H76.413v.752h.752v6.77H69.643v-6.77H70.4v-.752H69.267a.376.376,0,0,0-.376.376v7.522a.376.376,0,0,0,.376.376h8.274a.376.376,0,0,0,.376-.376V172.6A.376.376,0,0,0,77.541,172.228Z" transform="translate(0 -168.467)" fill="#fff"/>
-                                    <path d="M162.2,1.44V6.77h.752V1.44l1.615,1.615.532-.532L162.574,0l-2.523,2.523.532.532Z" transform="translate(-89.169 0)" fill="#fff"/>
-                                </g>
-                            </svg>
-                            Экспорт
+            <div class="col-md-9">
+                <div class="card">
+                    <div class="card-header">%%crudNameCap%%</div>
+                    <div class="card-body">
+                        <a href="{{ url('/%%routeGroup%%%%viewName%%/create') }}" class="btn btn-success btn-sm" title="Add New %%modelName%%">
+                            <i class="fa fa-plus" aria-hidden="true"></i> Add New
                         </a>
-                        <a href="#" class="export-import">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="9.027" height="12.035" viewBox="0 0 9.027 12.035">
-                                <g id="export" transform="translate(77.918 12.035) rotate(180)">
-                                    <path d="M77.541,172.228H76.413v.752h.752v6.77H69.643v-6.77H70.4v-.752H69.267a.376.376,0,0,0-.376.376v7.522a.376.376,0,0,0,.376.376h8.274a.376.376,0,0,0,.376-.376V172.6A.376.376,0,0,0,77.541,172.228Z" transform="translate(0 -168.467)" fill="#fff"/>
-                                    <path d="M162.2,1.44V6.77h.752V1.44l1.615,1.615.532-.532L162.574,0l-2.523,2.523.532.532Z" transform="translate(-89.169 0)" fill="#fff"/>
-                                </g>
-                            </svg>
-                            Импорт
-                        </a>
-                    </div>
-                    <div class="right">
+
                         <form method="GET" action="{{ url('/%%routeGroup%%%%viewName%%') }}" accept-charset="UTF-8" class="form-inline my-2 my-lg-0 float-right" role="search">
-                            <label>
-                                <input type="text" name="search" placeholder="Поиск" value="{{ request('search') }}">
-                            </label>
-                            <span>
-                                <button type="submit">
-                                    <i class="fa fa-search"></i>
-                                </button>
-                            </span>
+                            <div class="input-group">
+                                <input type="text" class="form-control" name="search" placeholder="Search..." value="{{ request('search') }}">
+                                <span class="input-group-append">
+                                    <button class="btn btn-secondary" type="submit">
+                                        <i class="fa fa-search"></i>
+                                    </button>
+                                </span>
+                            </div>
                         </form>
+
+                        <br/>
+                        <br/>
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>%%formHeadingHtml%%<th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                @foreach($%%crudName%% as $item)
+                                    <tr>
+                                        <td>{{ $loop->iteration }}</td>
+                                        %%formBodyHtml%%
+                                        <td>
+                                            <a href="{{ url('/%%routeGroup%%%%viewName%%/' . $item->%%primaryKey%%) }}" title="View %%modelName%%"><button class="btn btn-info btn-sm"><i class="fa fa-eye" aria-hidden="true"></i> View</button></a>
+                                            <a href="{{ url('/%%routeGroup%%%%viewName%%/' . $item->%%primaryKey%% . '/edit') }}" title="Edit %%modelName%%"><button class="btn btn-primary btn-sm"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button></a>
+
+                                            <form method="POST" action="{{ url('/%%routeGroup%%%%viewName%%' . '/' . $item->%%primaryKey%%) }}" accept-charset="UTF-8" style="display:inline">
+                                                {{ method_field('DELETE') }}
+                                                {{ csrf_field() }}
+                                                <button type="submit" class="btn btn-danger btn-sm" title="Delete %%modelName%%" onclick="return confirm(&quot;Confirm delete?&quot;)"><i class="fa fa-trash-o" aria-hidden="true"></i> Delete</button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                                </tbody>
+                            </table>
+                            <div class="pagination-wrapper"> {!! $%%crudName%%->appends(['search' => Request::get('search')])->render() !!} </div>
+                        </div>
+
                     </div>
                 </div>
             </div>
-        </div>
-
-        <div class="table">
-            <table class="table">
-                <thead>
-                <tr>
-                    <th>#</th><th>%%formHeadingHtml%%</th><th>Действия</th>
-                </tr>
-                </thead>
-                <tbody>
-                @foreach($%%crudName%% as $item)
-                    <tr>
-                        <td>{{ $loop->iteration }}</td>
-                        %%formBodyHtml%%
-                        <td>
-                            <a href="{{ url('/%%routeGroup%%%%viewName%%/' . $item->%%primaryKey%% . '/edit') }}" title="Edit Brand"><button class="btn btn-primary btn-sm"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Изменить</button></a>
-
-                            <form method="POST" action="{{ url('/%%routeGroup%%%%viewName%%' . '/' . $item->%%primaryKey%%) }}" accept-charset="UTF-8" style="display:inline">
-                                {{ method_field('DELETE') }}
-                                {{ csrf_field() }}
-                                <button type="submit" class="btn btn-danger btn-sm" title="Delete Brand" onclick="return confirm(&quot;Точно?&quot;)"><i class="fa fa-trash-o" aria-hidden="true"></i> Удалить</button>
-                            </form>
-                        </td>
-                    </tr>
-                @endforeach
-                </tbody>
-            </table>
-            <div class="pagination-wrapper"> {!! $%%crudName%%->appends(['search' => Request::get('search')])->render() !!} </div>
         </div>
     </div>
 @endsection
