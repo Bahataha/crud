@@ -16,7 +16,7 @@ This Generator package provides various generators like CRUD, API, Controller, M
 composer require duke/crud-generator --dev
 ```
 ```
-php artisan vendor:publish --provider="Duke\CrudGenerator\CrudGeneratorServiceProvider"
+php artisan vendor:publish --provider="Duke\CrudGenerator\CrudGeneratorServiceProvider" --force
 ```
 
 ```
