@@ -19,8 +19,8 @@
                     <div class="left">
                         <form method="GET" action="{{ url('/%%routeGroup%%%%viewName%%') }}" class="form-act" accept-charset="UTF-8" role="search">
                             <label class="search-date">
-                                <input type="date" name="date-from" value="{{ request('date-from') }}">
-                                <input type="date" name="date-to" class="data-to" value="{{ request('date-to') }}">
+                                <input type="date" name="date-from" value="@if(request('date-from') == null)<?php echo date("Y-m-d"); ?>@else{{ request('date-from') }}@endif">
+                                <input type="date" name="date-to" class="data-to" value="@if(request('date-to') == null)<?php echo date("Y-m-d"); ?>@else{{ request('date-to') }}@endif">
                             </label>
                             <span>
                                 <button type="submit">
@@ -28,16 +28,16 @@
                                 </button>
                             </span>
                         </form>
-                        <a href="#" class="export-import">
+                        <a href="{{ url('/%%routeGroup%%%%viewName%%/export/'.(((request()->has('date-from')) && (request()->has('date-to'))) ? request()->input('date-from') && request()->input('date-to') : 'all')) }}" class="export-import">
                             <svg xmlns="http://www.w3.org/2000/svg" width="9.027" height="12.035" viewBox="0 0 9.027 12.035">
                                 <g id="export" transform="translate(-68.891 0)">
                                     <path d="M77.541,172.228H76.413v.752h.752v6.77H69.643v-6.77H70.4v-.752H69.267a.376.376,0,0,0-.376.376v7.522a.376.376,0,0,0,.376.376h8.274a.376.376,0,0,0,.376-.376V172.6A.376.376,0,0,0,77.541,172.228Z" transform="translate(0 -168.467)" fill="#fff"/>
                                     <path d="M162.2,1.44V6.77h.752V1.44l1.615,1.615.532-.532L162.574,0l-2.523,2.523.532.532Z" transform="translate(-89.169 0)" fill="#fff"/>
                                 </g>
                             </svg>
-                            Экспорт
+                            {{ ((request()->has('date-from')) && (request()->has('date-to')))  ? 'Экспорт фильтра' : 'Экспорт' }}
                         </a>
-                        <a href="#" class="export-import">
+                        <a href="{{ url('/%%routeGroup%%%%viewName%%/import') }}" class="export-import">
                             <svg xmlns="http://www.w3.org/2000/svg" width="9.027" height="12.035" viewBox="0 0 9.027 12.035">
                                 <g id="export" transform="translate(77.918 12.035) rotate(180)">
                                     <path d="M77.541,172.228H76.413v.752h.752v6.77H69.643v-6.77H70.4v-.752H69.267a.376.376,0,0,0-.376.376v7.522a.376.376,0,0,0,.376.376h8.274a.376.376,0,0,0,.376-.376V172.6A.376.376,0,0,0,77.541,172.228Z" transform="translate(0 -168.467)" fill="#fff"/>
@@ -88,7 +88,7 @@
                 @endforeach
                 </tbody>
             </table>
-            <div class="pagination-wrapper"> {!! $%%crudName%%->appends(['search' => Request::get('search')])->render() !!} </div>
+            <div class="pagination-wrapper"> {!! $%%crudName%%->appends(['search' => Request::get('search'), 'date-from' => Request::get('date-from'), 'date-to' => Request::get('date-to')])->render() !!} </div>
         </div>
     </div>
 @endsection

@@ -185,11 +185,20 @@ class CrudCommand extends Command
     protected function addSidebar($name)
     {
 
-        return ["<div class=\"ul {{ (request()->is('admin/". $name ."')) ? 'active' : '' }}\"><a href=\"{{url('admin/". $name ."')}}\"> $name<span>{{count}}</span></a></div>"];
+        return ["
+                <div class=\"ul {{ (request()->is('admin/". strtolower($name) ."')) ? 'active' : '' }}\">
+                    <a href=\"{{url('admin/". strtolower($name) ."')}}\"> strtolower($name)<span>{{$count}}</span></a>
+                </div>"];
     }
     protected function addRoutes()
     {
-        return ["Route::resource('" . $this->routeName . "', '" . $this->controller . "');"];
+        return ["
+        Route::middleware(['auth', 'admin'])->group(function(){\n
+        \tRoute::resource('" . $this->routeName . "', '" . $this->controller . "');\n
+        \tRoute::get('" . $this->routeName . "/export/{filter}', '" . $this->controller . "@export');\n
+        \tRoute::get('" . $this->routeName . "/import', '" . $this->controller . "@import');\n
+        });
+        "];
     }
     protected function addRoutesExport()
     {
@@ -197,7 +206,7 @@ class CrudCommand extends Command
     }
     protected function addRoutesImport()
     {
-        return ["Route::get('" . $this->routeName . "/import/{filter}', '" . $this->controller . "@import');"];
+        return ["Route::get('" . $this->routeName . "/import', '" . $this->controller . "@import');"];
     }
 
     /**

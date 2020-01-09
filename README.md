@@ -13,17 +13,27 @@ This Generator package provides various generators like CRUD, API, Controller, M
 
 ## Installation
 ```
-composer require duke/crud-generator --dev
+composer require duke/crud-generator
 ```
 ```
+!!! Warning !!!
+Если у вас 
 php artisan vendor:publish --provider="Duke\CrudGenerator\CrudGeneratorServiceProvider" --force
-```
+
 
 ```
 
-'aliases' => [
+```
+before migration in user migration add
+    $table->string('type')->default('user');
+```
+
+```
+in    app\Http\Kernel
+
+protected $routeMiddleware = [
     ...
-    'Excel' => Duke\CrudGenerator\Facades\Excel::class,
+    'admin' => \App\Http\Middleware\IsAdmin::class,
 ]
 ```
 ## Usage
@@ -79,6 +89,6 @@ CRUD fields from a JSON file:
 }
 ```
 ```
-php artisan crud:generate Posts --fields_from_file="/path/to/fields.json" --view-path=admin --controller-namespace=Admin --route-group=admin --form-helper=html
+php artisan crud:generate Posts --fields_from_file="duke/j.json" --view-path=admin --controller-namespace=Admin --route-group=admin --form-helper=html
 ```
 "# duke" 
