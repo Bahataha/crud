@@ -41,7 +41,8 @@ class DummyClass extends Controller
      */
     public function create()
     {
-        return view('{{viewPath}}{{viewName}}.create');
+        $count = {{modelName}}::count();
+        return view('{{viewPath}}{{viewName}}.create', compact('count'));
     }
 
     /**
@@ -85,8 +86,8 @@ class DummyClass extends Controller
     public function edit($id)
     {
         ${{crudNameSingular}} = {{modelName}}::findOrFail($id);
-
-        return view('{{viewPath}}{{viewName}}.edit', compact('{{crudNameSingular}}'));
+        $count = {{modelName}}::count();
+        return view('{{viewPath}}{{viewName}}.edit', compact('{{crudNameSingular}}', 'count'));
     }
 
     /**
