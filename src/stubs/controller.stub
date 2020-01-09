@@ -24,14 +24,14 @@ class DummyClass extends Controller
     {
         $keyword = $request->get('search');
         $perPage = {{pagination}};
-
+        $count = {{modelName}}::count();
         if (!empty($keyword)) {
             ${{crudName}} = {{modelName}}::{{whereSnippet}}latest()->paginate($perPage);
         } else {
             ${{crudName}} = {{modelName}}::latest()->paginate($perPage);
         }
 
-        return view('{{viewPath}}{{viewName}}.index', compact('{{crudName}}'));
+        return view('{{viewPath}}{{viewName}}.index', compact('{{crudName}}', 'count'));
     }
 
     /**
