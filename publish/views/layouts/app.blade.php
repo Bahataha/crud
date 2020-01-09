@@ -30,7 +30,9 @@
                         <span>21 апреля 2019 21:34</span>
                     </div>
                 </div>
-                @include('admin.sidebar')
+                <div class="main-part">
+                    @include('admin.sidebar')
+                </div>
                 <div class="right">
                     @if(!Auth::check())
                         <li><a class="nav-link" href="{{ url('/login') }}">Login</a></li>

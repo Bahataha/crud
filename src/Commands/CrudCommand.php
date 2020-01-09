@@ -146,6 +146,12 @@ class CrudCommand extends Command
         if (\App::VERSION() >= '5.3') {
             $routeFile = base_path('routes/web.php');
         }
+        $sidebarFile = base_path('resources/views/admin/sidebar.blade.php');
+
+        if (file_exists($sidebarFile)){
+            $isAddedSidebar = File::append($sidebarFile, "\n" . implode("\n", $this->addSidebar($name)));
+        }
+
 
         if (file_exists($routeFile) && (strtolower($this->option('route')) === 'yes')) {
             $this->controller = ($controllerNamespace != '') ? $controllerNamespace . '\\' . $name . 'Controller' : $name . 'Controller';
@@ -176,6 +182,11 @@ class CrudCommand extends Command
      *
      * @return  array
      */
+    protected function addSidebar($name)
+    {
+
+        return ["<div class=\"ul {{ (request()->is('admin/". $name ."')) ? 'active' : '' }}\"><a href=\"{{url('admin/". $name ."')}}\"> $name<span>{{count}}</span></a></div>"];
+    }
     protected function addRoutes()
     {
         return ["Route::resource('" . $this->routeName . "', '" . $this->controller . "');"];

@@ -389,3 +389,12 @@ td a{
     border-radius: 5px;
     cursor: pointer;
 }
+.invalid-feedback{
+    display: block;
+    margin: 7px 0;
+    color: red;
+    font-size: 12px;
+}
+.is-invalid{
+    border: 1px solid red;
+}

@@ -4,7 +4,7 @@
 
     <div class="bodytext">
         <div class="head">
-            <h2>Пользователи</h2>
+            <h2>%%crudNameCap%%</h2>
             <a href="{{ url('/%%routeGroup%%%%viewName%%/create') }}">Добавить</a>
         </div>
         <div class="filter">
@@ -76,7 +76,7 @@
                         <td>{{ $loop->iteration }}</td>
                         %%formBodyHtml%%
                         <td>
-                            <a href="{{ url('/%%routeGroup%%%%viewName%%/' . $item->%%primaryKey%% . '/edit') }}" title="Edit Brand"><button class="btn btn-primary btn-sm"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Изменить</button></a>
+                            <a href="{{ url('/%%routeGroup%%%%viewName%%/' . $item->%%primaryKey%% . '/edit') }}" title="Edit Brand"><button class="btn btn-sm"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Изменить</button></a>
 
                             <form method="POST" action="{{ url('/%%routeGroup%%%%viewName%%' . '/' . $item->%%primaryKey%%) }}" accept-charset="UTF-8" style="display:inline">
                                 {{ method_field('DELETE') }}

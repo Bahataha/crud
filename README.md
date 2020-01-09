@@ -52,7 +52,7 @@ CRUD fields from a JSON file:
         },
         {
             "name": "user_id",
-            "type": "integer#unsigned"
+            "type": "bigint#unsigned"
         }
     ],
     "foreign_keys": [
