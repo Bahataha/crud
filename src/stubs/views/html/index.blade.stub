@@ -67,7 +67,7 @@
             <table class="table">
                 <thead>
                 <tr>
-                    <th>#</th><th>%%formHeadingHtml%%</th><th>Действия</th>
+                    <th>#</th>%%formHeadingHtml%%<th>Действия</th>
                 </tr>
                 </thead>
                 <tbody>
