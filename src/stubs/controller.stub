@@ -27,7 +27,11 @@ class DummyClass extends Controller
         $count = {{modelName}}::count();
         if (!empty($keyword)) {
             ${{crudName}} = {{modelName}}::{{whereSnippet}}latest()->paginate($perPage);
-        } else {
+        } elseif(!empty($date_from) || !empty($date_to)){
+            ${{crudName}} = {{modelName}}::whereBetween('created_at', [$date_from.' 00:00:00', $date_to.' 23:59:59'])
+                ->latest()->paginate($perPage);
+        }
+        else {
             ${{crudName}} = {{modelName}}::latest()->paginate($perPage);
         }
 

@@ -155,8 +155,8 @@ class CrudCommand extends Command
 
         if (file_exists($routeFile) && (strtolower($this->option('route')) === 'yes')) {
             $this->controller = ($controllerNamespace != '') ? $controllerNamespace . '\\' . $name . 'Controller' : $name . 'Controller';
-            $isAddedImport = File::append($routeFile, "\n" . implode("\n", $this->addRoutesImport()));
-            $isAddedExport = File::append($routeFile, "\n" . implode("\n", $this->addRoutesExport()));
+//            $isAddedImport = File::append($routeFile, "\n" . implode("\n", $this->addRoutesImport()));
+//            $isAddedExport = File::append($routeFile, "\n" . implode("\n", $this->addRoutesExport()));
             $isAdded = File::append($routeFile, "\n" . implode("\n", $this->addRoutes()));
 
             if ($isAdded) {
@@ -164,16 +164,16 @@ class CrudCommand extends Command
             } else {
                 $this->info('Unable to add the route to ' . $routeFile);
             }
-            if ($isAddedExport) {
-                $this->info('Export route added to ' . $routeFile);
-            } else {
-                $this->info('Unable to add the route to ' . $routeFile);
-            }
-            if ($isAddedImport) {
-                $this->info('Import route added to ' . $routeFile);
-            } else {
-                $this->info('Unable to add the route to ' . $routeFile);
-            }
+//            if ($isAddedExport) {
+//                $this->info('Export route added to ' . $routeFile);
+//            } else {
+//                $this->info('Unable to add the route to ' . $routeFile);
+//            }
+//            if ($isAddedImport) {
+//                $this->info('Import route added to ' . $routeFile);
+//            } else {
+//                $this->info('Unable to add the route to ' . $routeFile);
+//            }
         }
     }
 
@@ -194,9 +194,11 @@ class CrudCommand extends Command
     {
         return ["
         Route::middleware(['auth', 'admin'])->group(function(){\n
-        \tRoute::resource('" . $this->routeName . "', '" . $this->controller . "');\n
+        \tRoute::get('" . $this->routeName . "/dashboard', '" . "HomeController@index');\n
         \tRoute::get('" . $this->routeName . "/export/{filter}', '" . $this->controller . "@export');\n
         \tRoute::get('" . $this->routeName . "/import', '" . $this->controller . "@import');\n
+        \tRoute::resource('" . $this->routeName . "', '" . $this->controller . "');\n
+        
         });
         "];
     }
