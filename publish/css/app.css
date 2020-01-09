@@ -324,3 +324,68 @@ td a{
     font-weight: bold;
     margin-top: 24px;
 }
+.float-right{
+    display: flex;
+}
+.login-wrapper{
+    width: 100%;
+    margin: 0 auto;
+}
+.login-app{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+
+}
+.login-app .top{
+    display: flex;
+    align-items: center;
+    margin-bottom: 50px;
+}
+.login-app .top>p{
+    padding-left: 18px;
+    font-size: 22px;
+    font-weight: bold;
+}
+.inputemail{
+    margin-bottom: 18px;
+}
+.inputemail>p{
+    font-size: 11px;
+    color: #969696;
+    text-transform: uppercase;
+    font-weight: bold;
+    margin-bottom: 10px;
+
+}
+.inputtype{
+    width: 294px;
+    height: 50px;
+    padding: 0 22px;
+    border: 1px solid #969696;
+    border-radius: 5px;
+}
+.other{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 10px;
+}
+.other>a{
+    color: #F7AD39;
+    text-decoration: none;
+    border-bottom: 1px solid #F7AD39;
+    font-size: 14px;
+}
+.submit-log{
+    width: 155px;
+    height: 54px;
+    line-height: 54px;
+    text-transform: uppercase;
+    color: white;
+    background: linear-gradient(to bottom, #1795F2, #0979CC);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
