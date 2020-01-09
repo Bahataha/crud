@@ -184,7 +184,7 @@ class CrudCommand extends Command
      */
     protected function addSidebar($name)
     {
-        $count = null;
+        $count = '$count';
         return ["
                 <div class=\"ul {{ (request()->is('admin/". strtolower($name) ."')) ? 'active' : '' }}\">
                     <a href=\"{{url('admin/". strtolower($name) ."')}}\"> strtolower($name)<span>{{$count}}</span></a>
