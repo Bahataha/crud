@@ -2,6 +2,7 @@
 
 namespace Duke\CrudGenerator;
 
+use File;
 use Illuminate\Support\Collection;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Lumen\Application as LumenApplication;
