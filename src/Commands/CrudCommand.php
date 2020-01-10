@@ -194,20 +194,21 @@ class CrudCommand extends Command
     {
         return ["
 Route::middleware(['auth', 'admin'])->group(function(){
+\tRoute::get('admin/dashboard', $this->controller. '\\\AdminController@index');
 \tRoute::get('" . $this->routeName . "/export/{filter}', '" . $this->controller . "@export');
 \tRoute::get('" . $this->routeName . "/import', '" . $this->controller . "@import');
 \tRoute::resource('" . $this->routeName . "', '" . $this->controller . "');
 });
         "];
     }
-    protected function addRoutesExport()
-    {
-        return ["Route::get('" . $this->routeName . "/export/{filter}', '" . $this->controller . "@export');"];
-    }
-    protected function addRoutesImport()
-    {
-        return ["Route::get('" . $this->routeName . "/import', '" . $this->controller . "@import');"];
-    }
+//    protected function addRoutesExport()
+//    {
+//        return ["Route::get('" . $this->routeName . "/export/{filter}', '" . $this->controller . "@export');"];
+//    }
+//    protected function addRoutesImport()
+//    {
+//        return ["Route::get('" . $this->routeName . "/import', '" . $this->controller . "@import');"];
+//    }
 
     /**
      * Process the JSON Fields.

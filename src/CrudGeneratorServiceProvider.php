@@ -2,7 +2,6 @@
 
 namespace Duke\CrudGenerator;
 
-use File;
 use Illuminate\Support\Collection;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Lumen\Application as LumenApplication;
@@ -71,19 +70,8 @@ class   CrudGeneratorServiceProvider extends ServiceProvider
         $this->publishes([
             __DIR__ . '/../config/excel.php' => config_path('excel.php'),
         ]);
-        $routeFile = base_path('routes/web.php');
-        $route = "
-Route::middleware(['auth'])->group(function(){
-    Route::get('/home', 'Admin\\\AdminController@home');
-});
-Route::middleware(['auth', 'admin'])->group(function(){
-    Route::get('admin/dashboard', 'Admin\\\AdminController@index');
-});
-        ";
 
-        $this->publishes([
-            $isAdded = File::append($routeFile, $route)
-        ]);
+
     }
 
     /**
