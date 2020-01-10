@@ -72,22 +72,20 @@ class   CrudGeneratorServiceProvider extends ServiceProvider
             __DIR__ . '/../config/excel.php' => config_path('excel.php'),
         ]);
         $routeFile = base_path('routes/web.php');
-        if(file_exists($routeFile)) {
-            $this->publishes([
-                $isAdded = File::append($routeFile, "\n" . implode("\n", $this->addRoutes()))
-            ]);
-        }
-    }
-    protected function addRoutes()
-    {
-        return ["Route::middleware(['auth'])->group(function(){
-    Route::get('/home', 'Admin\\AdminController@home');
+        $route = "
+Route::middleware(['auth'])->group(function(){
+    Route::get('/home', 'Admin\\\AdminController@home');
 });
 Route::middleware(['auth', 'admin'])->group(function(){
-    Route::get('admin/dashboard', 'Admin\\AdminController@index');
+    Route::get('admin/dashboard', 'Admin\\\AdminController@index');
 });
-        "];
+        ";
+
+        $this->publishes([
+            $isAdded = File::append($routeFile, $route)
+        ]);
     }
+
     /**
      * Register the service provider.
      *
