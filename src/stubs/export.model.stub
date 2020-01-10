@@ -12,19 +12,28 @@ use Duke\CrudGenerator\Events\AfterSheet;
 
 class DummyClass implements FromCollection, ShouldAutoSize, WithEvents, WithHeadingRow, WithHeadings
 {
-    public $date;
+    public $filter;
 
-    public function __construct($date)
+    public function __construct($filter)
     {
-        $this->date = $date;
+        $this->filter = $filter;
     }
+
 
     /**
     * @return \Illuminate\Support\Collection
     */
     public function collection()
     {
-        return DummyModelClass::all();
+        if($this->filter == 'all'){
+            $data = DummyModelClass::all();
+        }
+        else{
+            $date_from = Carbon::parse(explode('&&', $this->filter)[0])->format('Y-m-d');
+            $date_to = Carbon::parse(explode('&&', $this->filter)[1])->format('Y-m-d');
+            $data = DummyModelClass::whereBetween('created_at', [$date_from.' 00:00:00', $date_to.' 23:59:59'])->get();
+        }
+        return $data;
     }
     public function headings(): array
         {

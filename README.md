@@ -1,23 +1,18 @@
 `````__`````# Laravel CRUD Generator
 
-[![Build Status](https://travis-ci.org/duke/crud-generator.svg)](https://travis-ci.org/duke/crud-generator.svg)
+[![Build Status](https://travis-ci.org/duke/crud-generator.svg?branch=master)](https://travis-ci.org/duke/crud-generator.svg?branch=master)
 [![Total Downloads](https://poser.pugx.org/duke/crud-generator/d/total.svg)](https://packagist.org/packages/duke/crud-generator)
 [![Latest Stable Version](https://poser.pugx.org/duke/crud-generator/v/stable.svg)](https://packagist.org/packages/duke/crud-generator)
 [![License](https://poser.pugx.org/duke/crud-generator/license.svg)](https://packagist.org/packages/duke/crud-generator)
-
-This Generator package provides various generators like CRUD, API, Controller, Model, Migration, View for your painless development of your applications.
-
-## Requirements
-    Laravel >= 5.3
-    PHP >= 5.6.4
 
 ## Installation
 ```
 composer require duke/crud-generator
 ```
+
 ```
 !!! Warning !!!
-Если у вас 
+Если у вас есть css/app.css нужно переименовать его
 php artisan vendor:publish --provider="Duke\CrudGenerator\CrudGeneratorServiceProvider" --force
 
 

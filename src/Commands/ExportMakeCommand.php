@@ -29,6 +29,7 @@ class ExportMakeCommand extends GeneratorCommand
      * @var string
      */
     protected $type = 'Export';
+    protected $formHeading = '';
 
     /**
      * Get the stub file for the generator.

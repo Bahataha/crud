@@ -323,7 +323,7 @@ td a{
     border-radius: 5px;
     border: 1px solid #DEDEDE;
     width: 100%;
-    padding: 0 25px;
+    padding: 10px 25px;
     box-sizing: border-box;
     background: #F9F9F9;
 }

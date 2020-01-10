@@ -149,7 +149,7 @@ class CrudCommand extends Command
         $sidebarFile = base_path('resources/views/admin/sidebar.blade.php');
 
         if (file_exists($sidebarFile)){
-            $isAddedSidebar = File::append($sidebarFile, "\n" . implode("\n", $this->addSidebar($name)));
+            $isAddedSidebar = File::append($sidebarFile, "\n" . implode("\n", $this->addSidebar($name, $modelNamespace)));
         }
 
 
@@ -182,24 +182,22 @@ class CrudCommand extends Command
      *
      * @return  array
      */
-    protected function addSidebar($name)
+    protected function addSidebar($name, $modelNamespace)
     {
-        $count = '$count';
+        $count = "{{ \App\ ". $modelNamespace ."::all()->count() }}";
         return ["
-                <div class=\"ul {{ (request()->is('admin/". strtolower($name) ."')) ? 'active' : '' }}\">
-                    <a href=\"{{url('admin/". strtolower($name) ."')}}\"> strtolower($name)<span>{{$count}}</span></a>
-                </div>"];
+<div class=\"ul {{ (request()->is('admin/". strtolower($name) ."')) ? 'active' : '' }}\">
+    <a href=\"{{url('admin/". strtolower($name) ."')}}\">". strtolower($name)."<span>$count</span></a>
+</div>"];
     }
     protected function addRoutes()
     {
         return ["
-        Route::middleware(['auth', 'admin'])->group(function(){\n
-        \tRoute::get('" . $this->routeName . "/dashboard', '" . "HomeController@index');\n
-        \tRoute::get('" . $this->routeName . "/export/{filter}', '" . $this->controller . "@export');\n
-        \tRoute::get('" . $this->routeName . "/import', '" . $this->controller . "@import');\n
-        \tRoute::resource('" . $this->routeName . "', '" . $this->controller . "');\n
-        
-        });
+Route::middleware(['auth', 'admin'])->group(function(){
+\tRoute::get('" . $this->routeName . "/export/{filter}', '" . $this->controller . "@export');
+\tRoute::get('" . $this->routeName . "/import', '" . $this->controller . "@import');
+\tRoute::resource('" . $this->routeName . "', '" . $this->controller . "');
+});
         "];
     }
     protected function addRoutesExport()
