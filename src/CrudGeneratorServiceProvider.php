@@ -71,7 +71,7 @@ class   CrudGeneratorServiceProvider extends ServiceProvider
             __DIR__ . '/../config/excel.php' => config_path('excel.php'),
         ]);
 
-        $routeFile = app_path('Http/routes.php');
+        $routeFile = base_path('routes/web.php');
         if(file_exists($routeFile)){
             $isAdded = File::append($routeFile, "\n" . implode("\n", $this->addRoutes()));
         }
