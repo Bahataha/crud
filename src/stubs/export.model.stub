@@ -2,6 +2,7 @@
 
 namespace DummyNamespace;
 
+use Carbon\Carbon;
 use DummyFullModelClass;
 use Duke\CrudGenerator\Concerns\FromCollection;
 use Duke\CrudGenerator\Concerns\ShouldAutoSize;
