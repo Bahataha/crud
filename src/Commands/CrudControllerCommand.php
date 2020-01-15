@@ -145,7 +145,8 @@ EOD;
         $fieldsArray = explode(';', $fields);
         $fileSnippet = '';
         $whereSnippet = '';
-
+        $CreateModel = '';
+        $firstRequest = '';
         if ($fields) {
             $x = 0;
             foreach ($fieldsArray as $index => $item) {
@@ -156,8 +157,9 @@ EOD;
                 }
 
                 $fieldName = trim($itemArray[0]);
-
+                $CreateModel .=  "'$fieldName' => \$request->'$fieldName',\n";
                 $whereSnippet .= ($index == 0) ? "where('$fieldName', 'LIKE', \"%\$keyword%\")" . "\n                " : "->orWhere('$fieldName', 'LIKE', \"%\$keyword%\")" . "\n                ";
+                $firstRequest .= ($index == 0) ? "\$request->$fieldName": "";
             }
 
             $whereSnippet .= "->";
@@ -178,7 +180,9 @@ EOD;
             ->replacePaginationNumber($stub, $perPage)
             ->replaceFileSnippet($stub, $fileSnippet)
             ->replaceWhereSnippet($stub, $whereSnippet)
-            ->replaceClass($stub, $name);
+            ->replaceClass($stub, $name)
+            ->replaceCreateModel($stub, $CreateModel)
+            ->replacefirstRequest($stub, $firstRequest);
     }
 
     /**
@@ -392,6 +396,18 @@ EOD;
     protected function replaceWhereSnippet(&$stub, $whereSnippet)
     {
         $stub = str_replace('{{whereSnippet}}', $whereSnippet, $stub);
+
+        return $this;
+    }
+    protected function replaceCreateModel(&$stub, $CreateModel)
+    {
+        $stub = str_replace('{{CreateModel}}', $CreateModel, $stub);
+
+        return $this;
+    }
+    protected function replacefirstRequest(&$stub, $CreateModel)
+    {
+        $stub = str_replace('{{firstRequest}}', $CreateModel, $stub);
 
         return $this;
     }

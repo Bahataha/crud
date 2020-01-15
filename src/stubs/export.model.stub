@@ -30,8 +30,8 @@ class DummyClass implements FromCollection, ShouldAutoSize, WithEvents, WithHead
             $data = DummyModelClass::all();
         }
         else{
-            $date_from = Carbon::parse(explode('&&', $this->filter)[0])->format('Y-m-d');
-            $date_to = Carbon::parse(explode('&&', $this->filter)[1])->format('Y-m-d');
+            $date_from = Carbon::parse(explode('-', $this->filter)[0])->format('Y-m-d');
+            $date_to = Carbon::parse(explode('-', $this->filter)[1])->format('Y-m-d');
             $data = DummyModelClass::whereBetween('created_at', [$date_from.' 00:00:00', $date_to.' 23:59:59'])->get();
         }
         return $data;

@@ -195,10 +195,10 @@ class CrudCommand extends Command
         return ["
 Route::middleware(['auth', 'admin'])->group(function(){
 \tRoute::get('" . $this->routeName . "/export/{filter}', '" . $this->controller . "@export');
-\tRoute::get('" . $this->routeName . "/import', '" . $this->controller . "@import');
+\tRoute::post('" . $this->routeName . "/import', '" . $this->controller . "@import');
+\tRoute::post('" . $this->option('view-path') . "/imported', '" .$this->controller . "@imported');
 \tRoute::resource('" . $this->routeName . "', '" . $this->controller . "');
-});
-        "];
+});"];
     }
 //    protected function addRoutesExport()
 //    {

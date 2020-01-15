@@ -16,10 +16,10 @@ class DummyClass implements ToModel
     public function model(array $row)
     {
         if(!empty($row[0])){
-            return new DummyModelClass([
+            $data = new DummyModelClass([
                     //
             ]);
         }
-
+        return $data;
     }
 }

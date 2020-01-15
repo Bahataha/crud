@@ -60,6 +60,15 @@ class   CrudGeneratorServiceProvider extends ServiceProvider
             __DIR__ . '/../publish/css/daterangepicker.min.css' => public_path('css/daterangepicker.min.css'),
         ]);
         $this->publishes([
+            __DIR__ . '/../publish/css/remodal.css' => public_path('css/remodal.css'),
+        ]);
+        $this->publishes([
+            __DIR__ . '/../publish/css/remodal-default-theme.css' => public_path('css/remodal-default-theme.css'),
+        ]);
+        $this->publishes([
+            __DIR__ . '/../publish/js/remodal.min.js' => public_path('js/remodal.min.js'),
+        ]);
+        $this->publishes([
             __DIR__ . '/../publish/js/moment.min.js' => public_path('js/moment.min.js'),
         ]);
         $this->publishes([

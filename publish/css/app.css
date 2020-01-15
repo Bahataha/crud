@@ -269,6 +269,7 @@ html, body{
 .table{
     margin-top: 50px;
     width: 100%;
+    border-collapse: collapse;
 }
 .bodytext th{
     border-bottom: 1px solid #DEDEDE;
@@ -293,7 +294,6 @@ td button{
     border-radius: 5px;
     cursor: pointer;
     font-size: 12px;
-    box-shadow: 0 0.125rem 0.25rem rgba(0,0,0,0.3);
 }
 .bodytext td a{
     margin-right: 9px;
@@ -441,4 +441,60 @@ td button{
 }
 .pagination-wrapper .active{
     color: black;
+}
+.left-fixed{
+    position: fixed;
+    width: 270px;
+    height: 100vh;
+    background: #151C28;
+    left: -270px;
+    transition: all 0.4s;
+}
+.left-fixed a{
+    display: block;
+    margin-left: 30px;
+    font-size: 16px;
+    color: #A1A5A9;
+    text-decoration: none;
+    margin-bottom: 34px;
+}
+.left-fixed a svg{
+    margin-right: 24px;
+}
+.left-fixed .main{
+    margin-top: 180px;
+}
+.remodal{
+    text-align: left;
+    border-radius: 10px;
+}
+.remodal table{
+    width: 100%;
+    margin-bottom: 25px;
+}
+.remodal-close{
+    left: auto;
+    right: 0;
+}
+.import-h3{
+    padding-bottom: 15px;
+}
+.remodal td, .remodal th{
+    padding: 5px;
+}
+.remodal td{
+    background: #F5F5F5;
+}
+input[name='created_at']{
+    display: block;
+    width: 100%;
+    height: 22px;
+    border-radius: 5px;
+    padding: 5px;
+    border: 1px solid gray;
+    margin-bottom: 10px;
+}
+.remodal .example{
+    font-size: 20px;
+    font-weight: bold;
 }

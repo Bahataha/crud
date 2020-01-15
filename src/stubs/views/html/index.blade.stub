@@ -36,7 +36,7 @@
                             </svg>
                             {{ (request()->has('filter'))  ? 'Экспорт фильтра' : 'Экспорт' }}
                         </a>
-                        <a href="{{ url('/%%routeGroup%%%%viewName%%/import') }}" class="export-import">
+                        <a href="#import" class="export-import">
                             <svg xmlns="http://www.w3.org/2000/svg" width="9.027" height="12.035" viewBox="0 0 9.027 12.035">
                                 <g id="export" transform="translate(77.918 12.035) rotate(180)">
                                     <path d="M77.541,172.228H76.413v.752h.752v6.77H69.643v-6.77H70.4v-.752H69.267a.376.376,0,0,0-.376.376v7.522a.376.376,0,0,0,.376.376h8.274a.376.376,0,0,0,.376-.376V172.6A.376.376,0,0,0,77.541,172.228Z" transform="translate(0 -168.467)" fill="#fff"/>
@@ -90,4 +90,29 @@
             <div class="pagination-wrapper"> {!! $%%crudName%%->appends(['search' => Request::get('search'), 'date-from' => Request::get('date-from'), 'date-to' => Request::get('date-to')])->render() !!} </div>
         </div>
     </div>
+    <div class="remodal form-import" data-remodal-id="import">
+        <button data-remodal-action="close" class="remodal-close"></button>
+        <h3 class="import-h3">Импорт %%crudNameCap%%</h3>
+        <div class="example">
+            Пример заполнения файла
+        </div>
+        <table>
+            <thead>
+                <tr>
+                    %%formHeadingHtml%%
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    %%formBodyHtml%%
+                </tr>
+            </tbody>
+        </table>
+        <form method="post" action="{{url('admin/posts/import')}}" enctype="multipart/form-data">
+            @csrf
+            <input type="file" name="file">
+            <button type="submit">Импорт</button>
+        </form>
+    </div>
+    <script src="{{ asset('js/remodal.min.js') }}"></script>
 @endsection

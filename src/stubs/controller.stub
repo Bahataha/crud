@@ -15,11 +15,7 @@ use App\Imports\{{modelName}}Import;
 
 class DummyClass extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\View\View
-     */
+
     public function index(Request $request)
     {
         $keyword = $request->get('search');
@@ -42,24 +38,14 @@ class DummyClass extends Controller
         return view('{{viewPath}}{{viewName}}.index', compact('{{crudName}}', 'count'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\View\View
-     */
+
     public function create()
     {
         $count = {{modelName}}::count();
         return view('{{viewPath}}{{viewName}}.create', compact('count'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     *
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
-     */
+
     public function store(Request $request)
     {
         {{validationRules}}
@@ -70,13 +56,7 @@ class DummyClass extends Controller
         return redirect('{{routeGroup}}{{viewName}}')->with('flash_message', '{{modelName}} added!');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     *
-     * @return \Illuminate\View\View
-     */
+
     public function show($id)
     {
         ${{crudNameSingular}} = {{modelName}}::findOrFail($id);
@@ -84,13 +64,7 @@ class DummyClass extends Controller
         return view('{{viewPath}}{{viewName}}.show', compact('{{crudNameSingular}}'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     *
-     * @return \Illuminate\View\View
-     */
+
     public function edit($id)
     {
         ${{crudNameSingular}} = {{modelName}}::findOrFail($id);
@@ -98,14 +72,7 @@ class DummyClass extends Controller
         return view('{{viewPath}}{{viewName}}.edit', compact('{{crudNameSingular}}', 'count'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @param  int  $id
-     *
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
-     */
+
     public function update(Request $request, $id)
     {
         {{validationRules}}
@@ -117,13 +84,7 @@ class DummyClass extends Controller
         return redirect('{{routeGroup}}{{viewName}}')->with('flash_message', '{{modelName}} updated!');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     *
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
-     */
+
     public function destroy($id)
     {
         {{modelName}}::destroy($id);
@@ -134,8 +95,29 @@ class DummyClass extends Controller
         return Excel::download(new {{modelName}}Export($date), '{{crudName}}Export-from-'.Carbon::now().'.xlsx');
     }
      public function import(){
-        Excel::import(new {{modelName}}Import, '{{crudName}}Import-from-'.Carbon::now().'.xlsx');
+        $path1 = $request->file('file')->store('temp');
+        $path=storage_path('app').'/'.$path1;
+        Excel::toArray(new {{modelName}}Import, $path);
+        $data = $data[0];
 
-        return view('{{viewPath}}{{viewName}}.index', compact('{{crudName}}'));
+        return redirect('{{routeGroup}}{{viewName}}/imported')->with('success', '$data');
+    }
+    public function imported(Request $request)
+    {
+
+
+        $url = explode('/', url()->previous());
+        $go = $url[count($url)-2];
+        $model = $url[count($url)-2];
+        $model =  ucfirst(Str::singular($model));
+
+        $model = str_replace(" ", "", 'App\ '.$model);
+        foreach ($request->ID as $id => $item)
+        {
+            $model::create([
+                {{CreateModel}}
+            ]);
+        }
+        return redirect('admin/'.$go);
     }
 }
