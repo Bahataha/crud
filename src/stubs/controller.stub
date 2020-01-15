@@ -12,6 +12,7 @@ use Carbon\Carbon;
 use Duke\CrudGenerator\Facades\Excel;
 use App\Exports\{{modelName}}Export;
 use App\Imports\{{modelName}}Import;
+use Illuminate\Support\Str;
 
 class DummyClass extends Controller
 {
@@ -94,30 +95,33 @@ class DummyClass extends Controller
     public function export($date){
         return Excel::download(new {{modelName}}Export($date), '{{crudName}}Export-from-'.Carbon::now().'.xlsx');
     }
-     public function import(){
+     public function import(Request $request){
         $path1 = $request->file('file')->store('temp');
         $path=storage_path('app').'/'.$path1;
-        Excel::toArray(new {{modelName}}Import, $path);
+        $data = Excel::toArray(new {{modelName}}Import, $path);
         $data = $data[0];
 
-        return redirect('{{routeGroup}}{{viewName}}/imported')->with('success', '$data');
+        return redirect('{{routeGroup}}{{viewName}}/imported')->with('success', $data);
     }
     public function imported(Request $request)
     {
+        $requestData = $request->all();
+        if(!empty($requestData)) {
+            $url = explode('/', url()->previous());
+            $go = $url[count($url)-2];
+            $model = $url[count($url)-2];
+            $model =  ucfirst(Str::singular($model));
 
-
-        $url = explode('/', url()->previous());
-        $go = $url[count($url)-2];
-        $model = $url[count($url)-2];
-        $model =  ucfirst(Str::singular($model));
-
-        $model = str_replace(" ", "", 'App\ '.$model);
-        foreach ($request->ID as $id => $item)
-        {
-            $model::create([
-                {{CreateModel}}
-            ]);
+            $model = str_replace(" ", "", 'App\ '.$model);
+            foreach ({{firstRequest}} as $id => $item)
+            {
+                $model::create([
+                    {{CreateModel}}
+                ]);
+            }
+            return redirect('admin/'.$go);
         }
-        return redirect('admin/'.$go);
+         else
+            return view('admin/imported');
     }
 }

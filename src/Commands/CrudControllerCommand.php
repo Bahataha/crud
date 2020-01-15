@@ -157,7 +157,7 @@ EOD;
                 }
 
                 $fieldName = trim($itemArray[0]);
-                $CreateModel .=  "'$fieldName' => \$request->'$fieldName',\n";
+                $CreateModel .=  "'$fieldName' => \$request->$fieldName [\$id],\n";
                 $whereSnippet .= ($index == 0) ? "where('$fieldName', 'LIKE', \"%\$keyword%\")" . "\n                " : "->orWhere('$fieldName', 'LIKE', \"%\$keyword%\")" . "\n                ";
                 $firstRequest .= ($index == 0) ? "\$request->$fieldName": "";
             }
@@ -180,9 +180,10 @@ EOD;
             ->replacePaginationNumber($stub, $perPage)
             ->replaceFileSnippet($stub, $fileSnippet)
             ->replaceWhereSnippet($stub, $whereSnippet)
-            ->replaceClass($stub, $name)
             ->replaceCreateModel($stub, $CreateModel)
-            ->replacefirstRequest($stub, $firstRequest);
+            ->replacefirstRequest($stub, $firstRequest)
+            ->replaceClass($stub, $name);
+
     }
 
     /**
