@@ -71,7 +71,7 @@ class   CrudGeneratorServiceProvider extends ServiceProvider
             __DIR__ . '/../config/excel.php' => config_path('excel.php'),
         ]);
         $this->publishes([
-            __DIR__ . '/../config/web.php/' => base_path('routes/web.php'),
+            __DIR__ . '/../config/web.php' => base_path('routes/web.php'),
         ]);
 
     }
