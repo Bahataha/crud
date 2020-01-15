@@ -10,7 +10,7 @@ class AdminController extends Controller
 {
     public function home()
     {
-        if (Auth::user()->type == 'user') { return redirect('welcome'); }
+        if (Auth::user()->type == 'user') { return redirect('/'); }
 
         if (Auth::user()->type == 'admin') {
             return redirect('admin/dashboard');
