@@ -11,9 +11,13 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Styles -->
+    <link rel="stylesheet" href="{{asset('css/daterangepicker.min.css')}}">
+
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href="https://fonts.googleapis.com/css?family=Roboto:100,400,500,700,900&display=swap" rel="stylesheet">
+    <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+    <script>tinymce.init({selector:'textarea'});</script>
 </head>
 <body>
     <div class="main-wrapper">
@@ -27,7 +31,7 @@
                     </div>
                     <div class="logo">
                         <h3>{{ config('app.name', 'Laravel') }}</h3>
-                        <span>21 апреля 2019 21:34</span>
+                        <span>{{  now()->format('d M Y H:i') }}</span>
                     </div>
                 </div>
                 <div class="main-part">
@@ -48,6 +52,56 @@
         </div>
         @yield('content')
     </div>
+    <script type="text/javascript" src="{{asset('js/moment.min.js')}}"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="{{asset('js/daterangepicker.min.js')}}"></script>
     <script src="{{ asset('js/app.js') }}"></script>
+    <script>
+        $(document).ready(function(){
+            $('.filterdate').daterangepicker({
+                "buttonClasses": "ui mini button",
+                "applyButtonClasses": "primary",
+                "locale": {
+                    "format": "DD.MM.YYYY",
+                    "separator": " - ",
+                    "applyLabel": "Применить",
+                    "cancelLabel": "Отмена",
+                    "fromLabel": "От",
+                    "toLabel": "До",
+                    "customRangeLabel": "Свой",
+                    "daysOfWeek": [
+                        "Вс",
+                        "Пн",
+                        "Вт",
+                        "Ср",
+                        "Чт",
+                        "Пт",
+                        "Сб"
+                    ],
+                    "monthNames": [
+                        "Январь",
+                        "Февраль",
+                        "Март",
+                        "Апрель",
+                        "Май",
+                        "Июнь",
+                        "Июль",
+                        "Август",
+                        "Сентябрь",
+                        "Октябрь",
+                        "Ноябрь",
+                        "Декабрь"
+                    ],
+                    "firstDay": 1
+                }
+
+            }, function(start, end, label) {
+                //console.log('New date range selected: ' + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD') + ' (predefined range: ' + label + ')');
+                $("#start").val(start.format('DD.MM.YYYY'));
+                $("#end").val(end.format('DD.MM.YYYY'));
+            });
+        });
+
+    </script>
 </body>
 </html>

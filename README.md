@@ -28,7 +28,7 @@ in    app\Http\Kernel
 
 protected $routeMiddleware = [
     ...
-    'admin' => \App\Http\Middleware\IsAdmin::class,
+    'admin' => \App\Http\Middleware\isAdmin::class,
 ]
 ```
 ## Usage

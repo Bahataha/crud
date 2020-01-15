@@ -23,11 +23,15 @@ class DummyClass extends Controller
     public function index(Request $request)
     {
         $keyword = $request->get('search');
+        $filter = $request->get('filter');
         $perPage = {{pagination}};
         $count = {{modelName}}::count();
         if (!empty($keyword)) {
             ${{crudName}} = {{modelName}}::{{whereSnippet}}latest()->paginate($perPage);
-        } elseif(!empty($date_from) || !empty($date_to)){
+        } elseif(!empty($filter)){
+            $filter = str_replace(' ', '', request()->input('filter'));
+            $date_from = Carbon::parse(explode('-', $filter)[0])->format('Y-m-d');
+            $date_to = Carbon::parse(explode('-', $filter)[1])->format('Y-m-d');
             ${{crudName}} = {{modelName}}::whereBetween('created_at', [$date_from.' 00:00:00', $date_to.' 23:59:59'])
                 ->latest()->paginate($perPage);
         }

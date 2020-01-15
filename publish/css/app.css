@@ -219,7 +219,7 @@ html, body{
     display: inline-flex;
     padding: 0 15px;
     text-decoration: none;
-    font-size: 11px;
+    font-size: 12px;
     line-height: 32px;
     box-shadow: 0 .125rem .25rem rgba(0,0,0,.075);
     font-weight: 500;
@@ -270,13 +270,19 @@ html, body{
     margin-top: 50px;
     width: 100%;
 }
-th{
+.bodytext th{
     border-bottom: 1px solid #DEDEDE;
     padding: 0 0 20px;
     text-align: left;
+    font-size: 14px;
 }
-td{
+.bodytext td{
     padding: 10px 0;
+    font-size: 14px;
+    color: #919191;
+}
+.bodytext tr:nth-child(even){
+    background: #F5F5F5;
 }
 td button{
     width: 97px;
@@ -287,8 +293,9 @@ td button{
     border-radius: 5px;
     cursor: pointer;
     font-size: 12px;
+    box-shadow: 0 0.125rem 0.25rem rgba(0,0,0,0.3);
 }
-td a{
+.bodytext td a{
     margin-right: 9px;
 }
 .btn-danger{
@@ -300,7 +307,7 @@ td a{
 }
 .grid{
     display: grid;
-    grid-template-columns: 335px auto auto;
+    grid-template-columns: auto 520px auto;
     margin-top: 60px;
     margin-left: 112px;
 }
@@ -337,14 +344,13 @@ td a{
 }
 .btn-primary{
     background: linear-gradient(to bottom, #1795F2, #0979CC);
-    width: 155px;
-    height: 55px;
+
+    height: 32px;
     border-radius: 5px;
     border: none;
     color: white;
-    font-size: 16px;
-    font-weight: bold;
-    margin-top: 24px;
+    font-size: 14px;
+    padding: 0 15px;
     cursor: pointer;
 }
 .float-right{

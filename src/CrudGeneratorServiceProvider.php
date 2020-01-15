@@ -56,7 +56,15 @@ class   CrudGeneratorServiceProvider extends ServiceProvider
         $this->publishes([
             __DIR__ . '/../publish/css/app.css' => public_path('css/app.css'),
         ]);
-
+        $this->publishes([
+            __DIR__ . '/../publish/css/daterangepicker.min.css' => public_path('css/daterangepicker.min.css'),
+        ]);
+        $this->publishes([
+            __DIR__ . '/../publish/js/moment.min.js' => public_path('js/moment.min.js'),
+        ]);
+        $this->publishes([
+            __DIR__ . '/../publish/js/daterangepicker.min.js' => public_path('js/daterangepicker.min.js'),
+        ]);
         if (\App::VERSION() <= '5.2') {
             $this->publishes([
                 __DIR__ . '/../publish/css/app.css' => public_path('css/app.css'),

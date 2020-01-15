@@ -187,7 +187,7 @@ class CrudCommand extends Command
         $count = "{{ \App\ ". $modelName ."::all()->count() }}";
         return ["
 <div class=\"ul {{ (request()->is('admin/". strtolower($name) ."')) ? 'active' : '' }}\">
-    <a href=\"{{url('admin/". strtolower($name) ."')}}\">". strtolower($name)."<span>$count</span></a>
+    <a href=\"{{url('admin/". strtolower($name) ."')}}\">". strtolower($name)." <span>$count</span></a>
 </div>"];
     }
     protected function addRoutes()
