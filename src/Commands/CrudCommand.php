@@ -194,7 +194,6 @@ class CrudCommand extends Command
     {
         return ["
 Route::middleware(['auth', 'admin'])->group(function(){
-\tRoute::get('admin/dashboard', $this->controller. '\\\AdminController@index');
 \tRoute::get('" . $this->routeName . "/export/{filter}', '" . $this->controller . "@export');
 \tRoute::get('" . $this->routeName . "/import', '" . $this->controller . "@import');
 \tRoute::resource('" . $this->routeName . "', '" . $this->controller . "');
