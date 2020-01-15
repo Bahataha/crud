@@ -149,7 +149,7 @@ class CrudCommand extends Command
         $sidebarFile = base_path('resources/views/admin/sidebar.blade.php');
 
         if (file_exists($sidebarFile)){
-            $isAddedSidebar = File::append($sidebarFile, "\n" . implode("\n", $this->addSidebar($name, $modelNamespace)));
+            $isAddedSidebar = File::append($sidebarFile, "\n" . implode("\n", $this->addSidebar($name, $modelName)));
         }
 
 
@@ -182,9 +182,9 @@ class CrudCommand extends Command
      *
      * @return  array
      */
-    protected function addSidebar($name, $modelNamespace)
+    protected function addSidebar($name, $modelName)
     {
-        $count = "{{ \App\ ". $modelNamespace ."::all()->count() }}";
+        $count = "{{ \App\ ". $modelName ."::all()->count() }}";
         return ["
 <div class=\"ul {{ (request()->is('admin/". strtolower($name) ."')) ? 'active' : '' }}\">
     <a href=\"{{url('admin/". strtolower($name) ."')}}\">". strtolower($name)."<span>$count</span></a>
