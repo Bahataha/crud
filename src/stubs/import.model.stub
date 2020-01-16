@@ -17,7 +17,7 @@ class DummyClass implements ToModel
     {
         if(!empty($row[0])){
             $data = new DummyModelClass([
-
+                {{fillable}}
             ]);
         }
         return $data;

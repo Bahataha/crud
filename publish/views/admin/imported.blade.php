@@ -5,6 +5,7 @@
         <div class="table">
             <table class="table">
                 <form action="{{url('admin/imported')}}" method="post">
+                    @php $stop = 26 @endphp
                     @csrf
                     <button type="submit">Импорт</button>
                     <thead>

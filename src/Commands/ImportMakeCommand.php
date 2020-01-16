@@ -69,22 +69,25 @@ class ImportMakeCommand extends GeneratorCommand
     protected function buildClass($name)
     {
         $stub = $this->files->get($this->getStub());
-//        $fillable = $this->option('fillable');
+        $fillable = str_replace(']', '', str_replace('[', '', $this->option('fillable')));
         $replace = [];
         if ($this->option('model')) {
             $replace = $this->buildModelReplacements($replace);
         }
-//        $ret = $this->replaceFillable($stub, $fillable);
-        return str_replace(
+
+        $fillable = explode(', ', $fillable);
+        foreach ($fillable as $id => $fill){
+            $fillable[$id] = $fill . ' => row['. $id .'],';
+        }
+        $fillable = implode('\n', $fillable);
+        $new = str_replace(
             array_keys($replace), array_values($replace), parent::buildClass($name)
         );
+        $new = str_replace('{{fillable}}', $fillable, $new);
+        dd($new);
+        return $new;
     }
-    protected function replaceFillable(&$stub, $fillable)
-    {
-        $stub = str_replace('{{fillable}}', $fillable, $stub);
 
-        return $this;
-    }
 
     /**
      * Get the console command options.
@@ -95,6 +98,7 @@ class ImportMakeCommand extends GeneratorCommand
     {
         return [
             ['model', 'm', InputOption::VALUE_OPTIONAL, 'Generate an import for the given model.'],
+            ['fillable', '', InputOption::VALUE_OPTIONAL, 'Generate an import for the given model.'],
             ['query', '', InputOption::VALUE_NONE, 'Generate an import for a query.'],
         ];
     }

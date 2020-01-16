@@ -44,9 +44,6 @@ class   CrudGeneratorServiceProvider extends ServiceProvider
             __DIR__ . '/../config/2014_10_12_000000_create_users_table.php' => database_path('migrations/2014_10_12_000000_create_users_table.php'),
         ]);
         $this->publishes([
-            __DIR__ . '/../config/filesystems.php' => config_path('filesystems.php'),
-        ]);
-        $this->publishes([
             __DIR__ . '/../config/AppServiceProvider.php' => base_path('app/Providers/AppServiceProvider.php'),
         ]);
         $this->publishes([
@@ -58,33 +55,12 @@ class   CrudGeneratorServiceProvider extends ServiceProvider
         $this->publishes([
             __DIR__ . '/../publish/views/' => base_path('resources/views/'),
         ]);
-
         $this->publishes([
-            __DIR__ . '/../publish/css/app.css' => public_path('css/app.css'),
+            __DIR__ . '/../publish/css/' => public_path('css/'),
         ]);
         $this->publishes([
-            __DIR__ . '/../publish/css/daterangepicker.min.css' => public_path('css/daterangepicker.min.css'),
+            __DIR__ . '/../publish/js/' => public_path('js/'),
         ]);
-        $this->publishes([
-            __DIR__ . '/../publish/css/remodal.css' => public_path('css/remodal.css'),
-        ]);
-        $this->publishes([
-            __DIR__ . '/../publish/css/remodal-default-theme.css' => public_path('css/remodal-default-theme.css'),
-        ]);
-        $this->publishes([
-            __DIR__ . '/../publish/js/remodal.min.js' => public_path('js/remodal.min.js'),
-        ]);
-        $this->publishes([
-            __DIR__ . '/../publish/js/moment.min.js' => public_path('js/moment.min.js'),
-        ]);
-        $this->publishes([
-            __DIR__ . '/../publish/js/daterangepicker.min.js' => public_path('js/daterangepicker.min.js'),
-        ]);
-        if (\App::VERSION() <= '5.2') {
-            $this->publishes([
-                __DIR__ . '/../publish/css/app.css' => public_path('css/app.css'),
-            ]);
-        }
 
         $this->publishes([
             __DIR__ . '/stubs/' => base_path('resources/crud-generator/'),
@@ -118,57 +94,57 @@ class   CrudGeneratorServiceProvider extends ServiceProvider
             'Duke\CrudGenerator\Commands\ExportMakeCommand',
             'Duke\CrudGenerator\Commands\ImportMakeCommand'
         );
-        $this->mergeConfigFrom(
-            $this->getConfigFile(),
-            'excel'
-        );
-
-        $this->app->bind(TransactionManager::class, function () {
-            return new TransactionManager($this->app);
-        });
-
-        $this->app->bind(TransactionHandler::class, function () {
-            return $this->app->make(TransactionManager::class)->driver();
-        });
-
-        $this->app->bind(TemporaryFileFactory::class, function () {
-            return new TemporaryFileFactory(
-                config('excel.temporary_files.local_path', config('excel.exports.temp_path', storage_path('framework/laravel-excel'))),
-                config('excel.temporary_files.remote_disk')
-
-            );
-        });
-
-        $this->app->bind(Filesystem::class, function () {
-            return new Filesystem($this->app->make('filesystem'));
-        });
-
-        $this->app->bind('excel', function () {
-            return new Excel(
-                $this->app->make(Writer::class),
-                $this->app->make(QueuedWriter::class),
-                $this->app->make(Reader::class),
-                $this->app->make(Filesystem::class)
-            );
-        });
-
-        $this->app->alias('excel', Excel::class);
-        $this->app->alias('excel', Exporter::class);
-        $this->app->alias('excel', Importer::class);
-
-        Collection::mixin(new DownloadCollection);
-        Collection::mixin(new StoreCollection);
-
-        $this->commands([
-            ExportMakeCommand::class,
-            ImportMakeCommand::class,
-        ]);
+//        $this->mergeConfigFrom(
+//            $this->getConfigFile(),
+//            'excel'
+//        );
+//
+//        $this->app->bind(TransactionManager::class, function () {
+//            return new TransactionManager($this->app);
+//        });
+//
+//        $this->app->bind(TransactionHandler::class, function () {
+//            return $this->app->make(TransactionManager::class)->driver();
+//        });
+//
+//        $this->app->bind(TemporaryFileFactory::class, function () {
+//            return new TemporaryFileFactory(
+//                config('excel.temporary_files.local_path', config('excel.exports.temp_path', storage_path('framework/laravel-excel'))),
+//                config('excel.temporary_files.remote_disk')
+//
+//            );
+//        });
+//
+//        $this->app->bind(Filesystem::class, function () {
+//            return new Filesystem($this->app->make('filesystem'));
+//        });
+//
+//        $this->app->bind('excel', function () {
+//            return new Excel(
+//                $this->app->make(Writer::class),
+//                $this->app->make(QueuedWriter::class),
+//                $this->app->make(Reader::class),
+//                $this->app->make(Filesystem::class)
+//            );
+//        });
+//
+//        $this->app->alias('excel', Excel::class);
+//        $this->app->alias('excel', Exporter::class);
+//        $this->app->alias('excel', Importer::class);
+//
+//        Collection::mixin(new DownloadCollection);
+//        Collection::mixin(new StoreCollection);
+//
+//        $this->commands([
+//            ExportMakeCommand::class,
+//            ImportMakeCommand::class,
+//        ]);
     }
-    /**
-     * @return string
-     */
-    protected function getConfigFile(): string
-    {
-        return __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . 'excel.php';
-    }
+//    /**
+//     * @return string
+//     */
+//    protected function getConfigFile(): string
+//    {
+//        return __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . 'excel.php';
+//    }
 }

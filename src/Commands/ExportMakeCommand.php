@@ -74,15 +74,19 @@ class ExportMakeCommand extends GeneratorCommand
     protected function buildClass($name)
     {
         $stub = $this->files->get($this->getStub());
-//        $fillable = $this->option('fillable');
+        $fillable = $this->option('fillable');
         $replace = [];
         if ($this->option('model')) {
             $replace = $this->buildModelReplacements($replace);
         }
-//        $ret = $this->replaceFillable($stub, $fillable);
-        return str_replace(
+
+        $new =  str_replace(
             array_keys($replace), array_values($replace), parent::buildClass($name)
         );
+
+        $new = str_replace('{{fillable}}', $fillable, $new);
+        return $new;
+
     }
     protected function replaceFillable(&$stub, $fillable)
     {
@@ -99,6 +103,7 @@ class ExportMakeCommand extends GeneratorCommand
     {
         return [
             ['model', 'm', InputOption::VALUE_OPTIONAL, 'Generate an export for the given model.'],
+            ['fillable', 'f', InputOption::VALUE_OPTIONAL, 'Generate an export for the given model.'],
             ['query', '', InputOption::VALUE_NONE, 'Generate an export for a query.'],
         ];
     }

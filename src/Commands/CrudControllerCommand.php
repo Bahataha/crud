@@ -47,8 +47,8 @@ class CrudControllerCommand extends GeneratorCommand
     protected function getStub()
     {
         return config('crudgenerator.custom_template')
-        ? config('crudgenerator.path') . '/controller.stub'
-        : __DIR__ . '/../stubs/controller.stub';
+            ? config('crudgenerator.path') . '/controller.stub'
+            : __DIR__ . '/../stubs/controller.stub';
     }
 
     /**
@@ -157,7 +157,7 @@ EOD;
                 }
 
                 $fieldName = trim($itemArray[0]);
-                $CreateModel .=  "'$fieldName' => \$request->$fieldName [\$id],\n";
+                $CreateModel .=  "'$fieldName' => \$request->"."$fieldName"."[\$id],\n                ";
                 $whereSnippet .= ($index == 0) ? "where('$fieldName', 'LIKE', \"%\$keyword%\")" . "\n                " : "->orWhere('$fieldName', 'LIKE', \"%\$keyword%\")" . "\n                ";
                 $firstRequest .= ($index == 0) ? "\$request->$fieldName": "";
             }

@@ -128,8 +128,8 @@ class CrudCommand extends Command
         $this->call('crud:controller', ['name' => $controllerNamespace . $name . 'Controller', '--crud-name' => $name, '--model-name' => $modelName, '--model-namespace' => $modelNamespace, '--view-path' => $viewPath, '--route-group' => $routeGroup, '--pagination' => $perPage, '--fields' => $fields, '--validations' => $validations]);
         $this->call('crud:model', ['name' => $modelNamespace . $modelName, '--fillable' => $fillable, '--table' => $tableName, '--pk' => $primaryKey, '--relationships' => $relationships, '--soft-deletes' => $softDeletes]);
         $this->call('crud:migration', ['name' => $migrationName, '--schema' => $migrationFields, '--pk' => $primaryKey, '--indexes' => $indexes, '--foreign-keys' => $foreignKeys, '--soft-deletes' => $softDeletes]);
-        $this->call('make:export', ['name' => $modelNamespace . $modelName . 'Export', '--model' => $modelName]);
-        $this->call('make:import', ['name' => $modelNamespace . $modelName . 'Import', '--model' => $modelName]);
+        $this->call('make:export', ['name' => $modelNamespace . $modelName . 'Export', '--model' => $modelName, '--fillable' => $fillable]);
+        $this->call('make:import', ['name' => $modelNamespace . $modelName . 'Import', '--model' => $modelName, '--fillable' => $fillable]);
         $this->call('crud:view', ['name' => $name, '--fields' => $fields, '--validations' => $validations, '--view-path' => $viewPath, '--route-group' => $routeGroup, '--localize' => $localize, '--pk' => $primaryKey, '--form-helper' => $formHelper]);
         if ($localize == 'yes') {
             $this->call('crud:lang', ['name' => $name, '--fields' => $fields, '--locales' => $locales]);
@@ -155,8 +155,7 @@ class CrudCommand extends Command
 
         if (file_exists($routeFile) && (strtolower($this->option('route')) === 'yes')) {
             $this->controller = ($controllerNamespace != '') ? $controllerNamespace . '\\' . $name . 'Controller' : $name . 'Controller';
-//            $isAddedImport = File::append($routeFile, "\n" . implode("\n", $this->addRoutesImport()));
-//            $isAddedExport = File::append($routeFile, "\n" . implode("\n", $this->addRoutesExport()));
+
             $isAdded = File::append($routeFile, "\n" . implode("\n", $this->addRoutes()));
 
             if ($isAdded) {
@@ -164,16 +163,7 @@ class CrudCommand extends Command
             } else {
                 $this->info('Unable to add the route to ' . $routeFile);
             }
-//            if ($isAddedExport) {
-//                $this->info('Export route added to ' . $routeFile);
-//            } else {
-//                $this->info('Unable to add the route to ' . $routeFile);
-//            }
-//            if ($isAddedImport) {
-//                $this->info('Import route added to ' . $routeFile);
-//            } else {
-//                $this->info('Unable to add the route to ' . $routeFile);
-//            }
+
         }
     }
 
@@ -192,23 +182,9 @@ class CrudCommand extends Command
     }
     protected function addRoutes()
     {
-        return ["
-Route::middleware(['auth', 'admin'])->group(function(){
-\tRoute::get('" . $this->routeName . "/export/{filter}', '" . $this->controller . "@export');
-\tRoute::post('" . $this->routeName . "/import', '" . $this->controller . "@import');
-\tRoute::get('" . $this->routeName . "/imported', '" . $this->controller . "@imported');
-\tRoute::post('" . $this->option('view-path') . "/imported', '" .$this->controller . "@imported');
-\tRoute::resource('" . $this->routeName . "', '" . $this->controller . "');
-});"];
+        return ["Route::middleware(['auth', 'admin'])->group(function(){\n\tRoute::get('" . $this->routeName . "/export/{filter}', '" . $this->controller . "@export');\n\tRoute::post('" . $this->routeName . "/import', '" . $this->controller . "@import');\n\tRoute::get('" . $this->routeName . "/imported', '" . $this->controller . "@imported');\n\tRoute::post('" . $this->option('view-path') . "/imported', '" .$this->controller . "@imported');\n\tRoute::resource('" . $this->routeName . "', '" . $this->controller . "');\n});"];
     }
-//    protected function addRoutesExport()
-//    {
-//        return ["Route::get('" . $this->routeName . "/export/{filter}', '" . $this->controller . "@export');"];
-//    }
-//    protected function addRoutesImport()
-//    {
-//        return ["Route::get('" . $this->routeName . "/import', '" . $this->controller . "@import');"];
-//    }
+
 
     /**
      * Process the JSON Fields.
