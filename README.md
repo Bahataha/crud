@@ -17,12 +17,6 @@ php artisan vendor:publish --provider="Duke\CrudGenerator\CrudGeneratorServicePr
 
 
 ```
-
-```
-before migration in user migration add
-    $table->string('type')->default('user');
-```
-
 ```
 in    app\Http\Kernel
 
