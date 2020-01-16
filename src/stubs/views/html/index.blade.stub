@@ -110,8 +110,8 @@
         </table>
         <form method="post" action="{{url('/%%routeGroup%%%%viewName%%/import')}}" enctype="multipart/form-data">
             @csrf
-            <input type="file" name="file">
-            <button type="submit">Импорт</button>
+            <input type="file" class="input-import" name="file">
+            <button type="submit" class="export-import" style="border:none; cursor: pointer">Импорт</button>
         </form>
     </div>
     <script src="{{ asset('js/remodal.min.js') }}"></script>
