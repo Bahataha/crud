@@ -77,14 +77,14 @@ class ImportMakeCommand extends GeneratorCommand
 
         $fillable = explode(', ', $fillable);
         foreach ($fillable as $id => $fill){
-            $fillable[$id] = $fill . ' => row['. $id .'],';
+            $fillable[$id] = $fill . ' => $row['. $id .'],';
         }
-        $fillable = implode('\n', $fillable);
+        $fillable = implode("\n                ", $fillable);
         $new = str_replace(
             array_keys($replace), array_values($replace), parent::buildClass($name)
         );
         $new = str_replace('{{fillable}}', $fillable, $new);
-        dd($new);
+
         return $new;
     }
 

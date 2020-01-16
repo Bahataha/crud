@@ -1,4 +1,4 @@
-<?php
+ker<?php
 
 class Kernel extends Illuminate\Foundation\Console\Kernel
 {

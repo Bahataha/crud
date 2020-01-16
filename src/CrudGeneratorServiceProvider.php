@@ -72,7 +72,9 @@ class   CrudGeneratorServiceProvider extends ServiceProvider
         $this->publishes([
             __DIR__ . '/../config/web.php' => base_path('routes/web.php'),
         ]);
-
+        $this->publishes([
+            __DIR__ . '/../config/filesystems.php' => config_path('filesystems.php'),
+        ]);
     }
 
     /**
