@@ -14,8 +14,7 @@ class ImportMakeCommand extends GeneratorCommand
      *
      * @var string
      */
-    protected $name = 'make:import
-                       {--fillable= : The field names for the form.}';
+    protected $name = 'make:import';
 
     /**
      * The console command description.
@@ -70,12 +69,12 @@ class ImportMakeCommand extends GeneratorCommand
     protected function buildClass($name)
     {
         $stub = $this->files->get($this->getStub());
-        $fillable = $this->option('fillable');
+//        $fillable = $this->option('fillable');
         $replace = [];
         if ($this->option('model')) {
             $replace = $this->buildModelReplacements($replace);
         }
-        $ret = $this->replaceFillable($stub, $fillable);
+//        $ret = $this->replaceFillable($stub, $fillable);
         return str_replace(
             array_keys($replace), array_values($replace), parent::buildClass($name)
         );

@@ -99,12 +99,12 @@
         <table>
             <thead>
                 <tr>
-                    %%formHeadingHtml%%
+                    %%trHeadingHtml%%
                 </tr>
             </thead>
             <tbody>
                 <tr>
-                    %%formHeadingHtml%%
+                    %%trBodyHtml%%
                 </tr>
             </tbody>
         </table>

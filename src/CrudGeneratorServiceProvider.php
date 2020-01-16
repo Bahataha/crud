@@ -41,6 +41,9 @@ class   CrudGeneratorServiceProvider extends ServiceProvider
             __DIR__ . '/../config/crudgenerator.php' => config_path('crudgenerator.php'),
         ]);
         $this->publishes([
+            __DIR__ . '/../config/2014_10_12_000000_create_users_table.php' => database_path('migrations/2014_10_12_000000_create_users_table.php'),
+        ]);
+        $this->publishes([
             __DIR__ . '/../config/AppServiceProvider.php' => base_path('app/Providers/AppServiceProvider.php'),
         ]);
         $this->publishes([
