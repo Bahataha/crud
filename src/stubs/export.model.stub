@@ -38,15 +38,7 @@ class DummyClass implements FromCollection, ShouldAutoSize, WithEvents, WithHead
     }
     public function headings(): array
         {
-            return [
-                'ID',
-                /*
-                |
-                |
-                |
-                */
-                'Дата'
-            ];
+            return {{fillable}};
         }
 
         /**

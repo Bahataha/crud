@@ -96,6 +96,8 @@ class CrudViewCommand extends Command
         'routeGroup',
         'formHeadingHtml',
         'formBodyHtml',
+        'trHeadingHtml',
+        'trBodyHtml',
         'viewTemplateDir',
         'formBodyHtmlForShowView',
     ];
@@ -211,7 +213,8 @@ class CrudViewCommand extends Command
      * @var string
      */
     protected $formBodyHtml = '';
-
+    protected $trBodyHtml = '';
+    protected $trHeadingHtml = '';
     /**
      * Html of view to show.
      *
@@ -318,7 +321,7 @@ class CrudViewCommand extends Command
                 $this->formFields[$x]['required'] = preg_match('/' . $itemArray[0] . '/', $validations)? true : false;
 
                 if (($this->formFields[$x]['type'] === 'select'
-                    || $this->formFields[$x]['type'] === 'enum')
+                        || $this->formFields[$x]['type'] === 'enum')
                     && isset($itemArray[2])
                 ) {
                     $options = trim($itemArray[2]);
@@ -334,7 +337,16 @@ class CrudViewCommand extends Command
         foreach ($this->formFields as $item) {
             $this->formFieldsHtml .= $this->createField($item);
         }
+        foreach ($this->formFields as $key => $value) {
+            $field = $value['name'];
+            $label = ucwords(str_replace('_', ' ', $field));
+            if ($this->option('localize') == 'yes') {
+                $label = '{{ trans(\'' . $this->crudName . '.' . $field . '\') }}';
+            }
+            $this->trHeadingHtml .= '<th>' . $label . '</th>';
+            $this->trBodyHtml .= '<td>' . $label . '</td>';
 
+        }
         $i = 0;
         foreach ($this->formFields as $key => $value) {
             if ($i == $this->defaultColumnsToShow) {
@@ -366,7 +378,7 @@ class CrudViewCommand extends Command
     private function defaultTemplating()
     {
         return [
-            'index' => ['formHeadingHtml', 'formBodyHtml', 'crudName', 'crudNameCap', 'modelName', 'viewName', 'routeGroup', 'primaryKey'],
+            'index' => ['formHeadingHtml', 'formBodyHtml', 'crudName', 'crudNameCap', 'modelName', 'viewName', 'routeGroup', 'primaryKey', 'trHeadingHtml', 'trBodyHtml'],
             'form' => ['formFieldsHtml'],
             'create' => ['crudName', 'crudNameCap', 'modelName', 'modelNameCap', 'viewName', 'routeGroup', 'viewTemplateDir'],
             'edit' => ['crudName', 'crudNameSingular', 'crudNameCap', 'modelNameCap', 'modelName', 'viewName', 'routeGroup', 'primaryKey', 'viewTemplateDir'],

@@ -128,8 +128,8 @@ class CrudCommand extends Command
         $this->call('crud:controller', ['name' => $controllerNamespace . $name . 'Controller', '--crud-name' => $name, '--model-name' => $modelName, '--model-namespace' => $modelNamespace, '--view-path' => $viewPath, '--route-group' => $routeGroup, '--pagination' => $perPage, '--fields' => $fields, '--validations' => $validations]);
         $this->call('crud:model', ['name' => $modelNamespace . $modelName, '--fillable' => $fillable, '--table' => $tableName, '--pk' => $primaryKey, '--relationships' => $relationships, '--soft-deletes' => $softDeletes]);
         $this->call('crud:migration', ['name' => $migrationName, '--schema' => $migrationFields, '--pk' => $primaryKey, '--indexes' => $indexes, '--foreign-keys' => $foreignKeys, '--soft-deletes' => $softDeletes]);
-        $this->call('make:export', ['name' => $modelNamespace . $modelName . 'Export', '--model' => $modelName]);
-        $this->call('make:import', ['name' => $modelNamespace . $modelName . 'Import', '--model' => $modelName]);
+        $this->call('make:export', ['name' => $modelNamespace . $modelName . 'Export', '--model' => $modelName, '--fillable' => $fillable]);
+        $this->call('make:import', ['name' => $modelNamespace . $modelName . 'Import', '--model' => $modelName, '--fillable' => $fillable]);
         $this->call('crud:view', ['name' => $name, '--fields' => $fields, '--validations' => $validations, '--view-path' => $viewPath, '--route-group' => $routeGroup, '--localize' => $localize, '--pk' => $primaryKey, '--form-helper' => $formHelper]);
         if ($localize == 'yes') {
             $this->call('crud:lang', ['name' => $name, '--fields' => $fields, '--locales' => $locales]);

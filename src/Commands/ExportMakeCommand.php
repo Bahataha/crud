@@ -14,7 +14,8 @@ class ExportMakeCommand extends GeneratorCommand
      *
      * @var string
      */
-    protected $name = 'make:export';
+    protected $name = 'make:export
+                        {--fillable= : The field names for the form.}';
 
     /**
      * The console command description.
@@ -73,16 +74,23 @@ class ExportMakeCommand extends GeneratorCommand
      */
     protected function buildClass($name)
     {
+        $stub = $this->files->get($this->getStub());
+        $fillable = $this->option('fillable');
         $replace = [];
         if ($this->option('model')) {
             $replace = $this->buildModelReplacements($replace);
         }
-
+        $ret = $this->replaceFillable($stub, $fillable);
         return str_replace(
             array_keys($replace), array_values($replace), parent::buildClass($name)
         );
     }
+    protected function replaceFillable(&$stub, $fillable)
+    {
+        $stub = str_replace('{{fillable}}', $fillable, $stub);
 
+        return $this;
+    }
     /**
      * Get the console command options.
      *
