@@ -4,7 +4,9 @@
     <div class="bodytext">
         <div class="table">
             <table class="table">
-                <form action="{{url('admin/imported')}}" method="post">
+
+                @php $url = explode('/', url()->previous()) @endphp
+                <form action="{{url('admin/'. end($url) .'/imported')}}" method="post">
                     @php $stop = 26 @endphp
                     @csrf
                     <button type="submit">Импорт</button>

@@ -175,14 +175,18 @@ class CrudCommand extends Command
     protected function addSidebar($name, $modelName)
     {
         $count = "{{ \App\ ". $modelName ."::all()->count() }}";
-        return ["
-<div class=\"ul {{ (request()->is('admin/". strtolower($name) ."')) ? 'active' : '' }}\">
-    <a href=\"{{url('admin/". strtolower($name) ."')}}\">". strtolower($name)." <span>$count</span></a>
-</div>"];
+        return ["<div class=\"ul {{ (request()->is('admin/". strtolower($name) ."')) ? 'active' : '' }}\">"."
+            ".
+            "<a href=\"{{url('admin/". strtolower($name) ."')}}\">". strtolower($name)." <span>$count</span></a></div>"];
     }
     protected function addRoutes()
     {
-        return ["Route::middleware(['auth', 'admin'])->group(function(){\n\tRoute::get('" . $this->routeName . "/export/{filter}', '" . $this->controller . "@export');\n\tRoute::post('" . $this->routeName . "/import', '" . $this->controller . "@import');\n\tRoute::get('" . $this->routeName . "/imported', '" . $this->controller . "@imported');\n\tRoute::post('" . $this->option('view-path') . "/imported', '" .$this->controller . "@imported');\n\tRoute::resource('" . $this->routeName . "', '" . $this->controller . "');\n});"];
+        return ["Route::middleware(['auth', 'admin'])->group(function(){".
+            "\n\tRoute::get('" . $this->routeName . "/export/{filter}', '" . $this->controller . "@export');".
+            "\n\tRoute::post('" . $this->routeName . "/import', '" . $this->controller . "@import');".
+            "\n\tRoute::get('" . $this->routeName . "/imported', '" . $this->controller . "@imported');".
+            "\n\tRoute::post('" . $this->routeName . "/imported', '" .$this->controller . "@imported');".
+            "\n\tRoute::resource('" . $this->routeName . "', '" . $this->controller . "');\n});"];
     }
 
 
