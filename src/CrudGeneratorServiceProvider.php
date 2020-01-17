@@ -66,7 +66,7 @@ class   CrudGeneratorServiceProvider extends ServiceProvider
             __DIR__ . '/../config/web.php' => base_path('routes/web.php'),
         ]);
         $this->publishes([
-            __DIR__ . '/../config/' => config_path(''),
+            __DIR__ . '/../config/' => config_path('/'),
         ]);
     }
 
@@ -130,10 +130,10 @@ class   CrudGeneratorServiceProvider extends ServiceProvider
         Collection::mixin(new DownloadCollection);
         Collection::mixin(new StoreCollection);
 
-//        $this->commands([
-//            ExportMakeCommand::class,
-//            ImportMakeCommand::class,
-//        ]);
+        $this->commands([
+            ExportMakeCommand::class,
+            ImportMakeCommand::class,
+        ]);
     }
 //    /**
 //     * @return string
