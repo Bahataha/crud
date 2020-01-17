@@ -95,10 +95,10 @@ class   CrudGeneratorServiceProvider extends ServiceProvider
             'Duke\CrudGenerator\Commands\ExportMakeCommand',
             'Duke\CrudGenerator\Commands\ImportMakeCommand'
         );
-        $this->mergeConfigFrom(
-            $this->getConfigFile(),
-            'excel'
-        );
+//        $this->mergeConfigFrom(
+//            $this->getConfigFile(),
+//            'excel'
+//        );
 
         $this->app->bind(TransactionManager::class, function () {
             return new TransactionManager($this->app);
