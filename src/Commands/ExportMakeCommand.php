@@ -75,6 +75,7 @@ class ExportMakeCommand extends GeneratorCommand
     {
         $stub = $this->files->get($this->getStub());
         $fillable = $this->option('fillable');
+        $fillable = str_replace('[', "['ID', 'created_at', 'updated_at', ", $fillable);
         $replace = [];
         if ($this->option('model')) {
             $replace = $this->buildModelReplacements($replace);
@@ -88,12 +89,7 @@ class ExportMakeCommand extends GeneratorCommand
         return $new;
 
     }
-    protected function replaceFillable(&$stub, $fillable)
-    {
-        $stub = str_replace('{{fillable}}', $fillable, $stub);
 
-        return $this;
-    }
     /**
      * Get the console command options.
      *

@@ -53,7 +53,11 @@ class DummyClass extends Controller
         $requestData = $request->all();
         {{fileSnippet}}
         {{modelName}}::create($requestData);
-
+        Log::create([
+            'name' => auth()->user()->name,
+            'action' => 'create',
+            'ip_address' => $request->ip()
+        ]);
         return redirect('{{routeGroup}}{{viewName}}')->with('flash_message', '{{modelName}} added!');
     }
 
@@ -81,7 +85,11 @@ class DummyClass extends Controller
         {{fileSnippet}}
         ${{crudNameSingular}} = {{modelName}}::findOrFail($id);
         ${{crudNameSingular}}->update($requestData);
-
+        Log::create([
+            'name' => auth()->user()->name,
+            'action' => 'update',
+            'ip_address' => $request->ip()
+        ]);
         return redirect('{{routeGroup}}{{viewName}}')->with('flash_message', '{{modelName}} updated!');
     }
 
@@ -89,7 +97,11 @@ class DummyClass extends Controller
     public function destroy($id)
     {
         {{modelName}}::destroy($id);
-
+        Log::create([
+            'name' => auth()->user()->name,
+            'action' => 'delete',
+            'ip_address' => $request->ip()
+        ]);
         return redirect('{{routeGroup}}{{viewName}}')->with('flash_message', '{{modelName}} deleted!');
     }
     public function export($date){
@@ -119,6 +131,11 @@ class DummyClass extends Controller
                     {{CreateModel}}
                 ]);
             }
+            Log::create([
+                'name' => auth()->user()->name,
+                'action' => 'import',
+                'ip_address' => $request->ip()
+            ]);
             return redirect('admin/'.$go);
         }
          else

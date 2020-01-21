@@ -157,7 +157,7 @@ EOD;
                 }
 
                 $fieldName = trim($itemArray[0]);
-                $CreateModel .=  "'$fieldName' => \$request->"."$fieldName"."[\$id],\n                ";
+                $CreateModel .=  "'$fieldName' => \$request->"."$fieldName"."[\$id],\n                \t";
                 $whereSnippet .= ($index == 0) ? "where('$fieldName', 'LIKE', \"%\$keyword%\")" . "\n                " : "->orWhere('$fieldName', 'LIKE', \"%\$keyword%\")" . "\n                ";
                 $firstRequest .= ($index == 0) ? "\$request->$fieldName": "";
             }
