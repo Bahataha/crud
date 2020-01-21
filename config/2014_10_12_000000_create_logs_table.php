@@ -18,6 +18,10 @@ class CreateLogsTable extends Migration
             $table->string('name')->nullable();
             $table->string('action')->nullable();
             $table->string('ip_address')->nullable();
+            $table->string('city')->nullable();
+            $table->string('region')->nullable();
+            $table->string('country')->nullable();
+            $table->string('timezone')->nullable();
             });
     }
 

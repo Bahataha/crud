@@ -343,7 +343,7 @@ class CrudViewCommand extends Command
             if ($this->option('localize') == 'yes') {
                 $label = '{{ trans(\'' . $this->crudName . '.' . $field . '\') }}';
             }
-            $this->trHeadingHtml .= '<th>' . $label . '</th>';
+            $this->trHeadingHtml .= '<th>' . $field . '</th>';
             $this->trBodyHtml .= '<td>' . $label . '</td>';
 
         }

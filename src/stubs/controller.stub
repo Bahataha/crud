@@ -9,6 +9,7 @@ use DummyRootNamespaceHttp\Controllers\Controller;
 use DummyRootNamespace{{modelNamespace}}{{modelName}};
 use Illuminate\Http\Request;
 use Carbon\Carbon;
+use App\Log;
 use Duke\CrudGenerator\Facades\Excel;
 use App\Exports\{{modelName}}Export;
 use App\Imports\{{modelName}}Import;
@@ -22,7 +23,7 @@ class DummyClass extends Controller
         $keyword = $request->get('search');
         $filter = $request->get('filter');
         $perPage = {{pagination}};
-        $count = {{modelName}}::count();
+
         if (!empty($keyword)) {
             ${{crudName}} = {{modelName}}::{{whereSnippet}}latest()->paginate($perPage);
         } elseif(!empty($filter)){
@@ -36,14 +37,14 @@ class DummyClass extends Controller
             ${{crudName}} = {{modelName}}::latest()->paginate($perPage);
         }
 
-        return view('{{viewPath}}{{viewName}}.index', compact('{{crudName}}', 'count'));
+        return view('{{viewPath}}{{viewName}}.index', compact('{{crudName}}'));
     }
 
 
     public function create()
     {
-        $count = {{modelName}}::count();
-        return view('{{viewPath}}{{viewName}}.create', compact('count'));
+
+        return view('{{viewPath}}{{viewName}}.create');
     }
 
 
@@ -53,10 +54,15 @@ class DummyClass extends Controller
         $requestData = $request->all();
         {{fileSnippet}}
         {{modelName}}::create($requestData);
+        $location = json_decode(file_get_contents('http://ipinfo.io/'.$request->ip().'/json'));
         Log::create([
             'name' => auth()->user()->name,
-            'action' => 'create',
-            'ip_address' => $request->ip()
+            'action' => 'import',
+            'ip_address' => $request->ip(),
+            'city' => $location->city,
+            'region' => $location->region,
+            'country' => $location->country,
+            'timezone' => $location->timezone
         ]);
         return redirect('{{routeGroup}}{{viewName}}')->with('flash_message', '{{modelName}} added!');
     }
@@ -73,8 +79,8 @@ class DummyClass extends Controller
     public function edit($id)
     {
         ${{crudNameSingular}} = {{modelName}}::findOrFail($id);
-        $count = {{modelName}}::count();
-        return view('{{viewPath}}{{viewName}}.edit', compact('{{crudNameSingular}}', 'count'));
+
+        return view('{{viewPath}}{{viewName}}.edit', compact('{{crudNameSingular}}'));
     }
 
 
@@ -85,22 +91,32 @@ class DummyClass extends Controller
         {{fileSnippet}}
         ${{crudNameSingular}} = {{modelName}}::findOrFail($id);
         ${{crudNameSingular}}->update($requestData);
+        $location = json_decode(file_get_contents('http://ipinfo.io/'.$request->ip().'/json'));
         Log::create([
             'name' => auth()->user()->name,
-            'action' => 'update',
-            'ip_address' => $request->ip()
+            'action' => 'import',
+            'ip_address' => $request->ip(),
+            'city' => $location->city,
+            'region' => $location->region,
+            'country' => $location->country,
+            'timezone' => $location->timezone
         ]);
         return redirect('{{routeGroup}}{{viewName}}')->with('flash_message', '{{modelName}} updated!');
     }
 
 
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
         {{modelName}}::destroy($id);
+        $location = json_decode(file_get_contents('http://ipinfo.io/'.$request->ip().'/json'));
         Log::create([
             'name' => auth()->user()->name,
-            'action' => 'delete',
-            'ip_address' => $request->ip()
+            'action' => 'import',
+            'ip_address' => $request->ip(),
+            'city' => $location->city,
+            'region' => $location->region,
+            'country' => $location->country,
+            'timezone' => $location->timezone
         ]);
         return redirect('{{routeGroup}}{{viewName}}')->with('flash_message', '{{modelName}} deleted!');
     }
@@ -131,10 +147,15 @@ class DummyClass extends Controller
                     {{CreateModel}}
                 ]);
             }
+            $location = json_decode(file_get_contents('http://ipinfo.io/'.$request->ip().'/json'));
             Log::create([
                 'name' => auth()->user()->name,
                 'action' => 'import',
-                'ip_address' => $request->ip()
+                'ip_address' => $request->ip(),
+                'city' => $location->city,
+                'region' => $location->region,
+                'country' => $location->country,
+                'timezone' => $location->timezone
             ]);
             return redirect('admin/'.$go);
         }
