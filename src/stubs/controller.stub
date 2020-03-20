@@ -1,0 +1,128 @@
+<?php
+
+namespace DummyNamespace;
+
+
+use DummyRootNamespaceHttp\Requests;
+use DummyRootNamespaceHttp\Controllers\Controller;
+use DummyRootNamespace{{modelNamespace}}{{modelName}};
+use Illuminate\Http\Request;
+use Carbon\Carbon;
+use App\Log;
+use Duke\CrudGenerator\Facades\Excel;
+use App\Exports\{{modelName}}Export;
+use App\Imports\{{modelName}}Import;
+use Illuminate\Support\Str;
+
+class DummyClass extends Controller
+{
+
+    public function index(Request $request)
+    {
+        $keyword = $request->get('search');
+        $filter = $request->get('filter');
+        $perPage = {{pagination}};
+
+        if (!empty($keyword)) {
+            ${{crudName}} = {{modelName}}::{{whereSnippet}}latest()->paginate($perPage);
+        } elseif(!empty($filter)){
+            $filter = str_replace(' ', '', request()->input('filter'));
+            $date_from = Carbon::parse(explode('-', $filter)[0])->format('Y-m-d');
+            $date_to = Carbon::parse(explode('-', $filter)[1])->format('Y-m-d');
+            ${{crudName}} = {{modelName}}::whereBetween('created_at', [$date_from.' 00:00:00', $date_to.' 23:59:59'])
+                ->latest()->paginate($perPage);
+        }
+        else {
+            ${{crudName}} = {{modelName}}::latest()->paginate($perPage);
+        }
+
+        return view('{{viewPath}}{{viewName}}.index', compact('{{crudName}}'));
+    }
+
+
+    public function create()
+    {
+
+        return view('{{viewPath}}{{viewName}}.create');
+    }
+
+
+    public function store(Request $request)
+    {
+        {{validationRules}}
+        $requestData = $request->all();
+        {{fileSnippet}}
+        {{modelName}}::create($requestData);
+
+        return redirect('{{routeGroup}}{{viewName}}')->with('flash_message', '{{modelName}} added!');
+    }
+
+
+    public function show($id)
+    {
+        ${{crudNameSingular}} = {{modelName}}::findOrFail($id);
+
+        return view('{{viewPath}}{{viewName}}.show', compact('{{crudNameSingular}}'));
+    }
+
+
+    public function edit($id)
+    {
+        ${{crudNameSingular}} = {{modelName}}::findOrFail($id);
+
+        return view('{{viewPath}}{{viewName}}.edit', compact('{{crudNameSingular}}'));
+    }
+
+
+    public function update(Request $request, $id)
+    {
+        {{validationRules}}
+        $requestData = $request->all();
+        {{fileSnippet}}
+        ${{crudNameSingular}} = {{modelName}}::findOrFail($id);
+        ${{crudNameSingular}}->update($requestData);
+
+        return redirect('{{routeGroup}}{{viewName}}')->with('flash_message', '{{modelName}} updated!');
+    }
+
+
+    public function destroy(Request $request, $id)
+    {
+        {{modelName}}::destroy($id);
+
+        return redirect('{{routeGroup}}{{viewName}}')->with('flash_message', '{{modelName}} deleted!');
+    }
+    public function export($date){
+        return Excel::download(new {{modelName}}Export($date), '{{crudName}}Export-from-'.Carbon::now().'.xlsx');
+    }
+    public function import(Request $request){
+        $path1 = $request->file('file')->store('temp');
+        $path=storage_path('app').'/'.$path1;
+        $data = Excel::toArray(new {{modelName}}Import, $path);
+        $data = $data[0];
+
+        return redirect('{{routeGroup}}{{viewName}}/imported')->with('success', $data);
+    }
+    public function imported(Request $request)
+    {
+        $requestData = $request->all();
+        if(!empty($requestData)) {
+            $url = explode('/', url()->previous());
+            $go = $url[count($url)-2];
+            $model = $url[count($url)-2];
+            $model =  ucfirst(Str::singular($model));
+
+            $model = str_replace(" ", "", 'App\ '.$model);
+            foreach ({{firstRequest}} as $id => $item)
+            {
+                $model::create([
+                    {{CreateModel}}
+                ]);
+            }
+
+            return redirect('admin/'.$go);
+        }
+         else
+            return view('admin/imported');
+    }
+}
