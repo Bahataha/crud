@@ -13,7 +13,16 @@ class CrudGeneratorServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        $this->commands(
+            'Duke\CrudGenerator\Commands\CrudCommand',
+            'Duke\CrudGenerator\Commands\CrudControllerCommand',
+            'Duke\CrudGenerator\Commands\CrudModelCommand',
+            'Duke\CrudGenerator\Commands\CrudMigrationCommand',
+            'Duke\CrudGenerator\Commands\CrudViewCommand',
+            'Duke\CrudGenerator\Commands\CrudExport',
+            'Duke\CrudGenerator\Commands\CrudImport',
+            'Duke\CrudGenerator\Commands\CrudTest'
+        );
     }
 
     /**

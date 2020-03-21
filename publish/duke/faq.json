@@ -1,0 +1,12 @@
+{
+    "fields": [
+        {
+            "name": "question",
+            "type": "string"
+        },
+        {
+            "name": "answer",
+            "type": "text"
+        }
+    ]
+}

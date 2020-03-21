@@ -1,6 +1,6 @@
 <?php
 
-use Duke\CrudGenerator\Excel;
+use Maatwebsite\Excel\Excel;
 
 return [
 
@@ -129,7 +129,7 @@ return [
         | you can implement your own default value binder.
         |
         */
-        'default' => Duke\CrudGenerator\DefaultValueBinder::class,
+        'default' => Maatwebsite\Excel\DefaultValueBinder::class,
     ],
 
     'transactions' => [

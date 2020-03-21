@@ -1,0 +1,44 @@
+{
+    "fields": [
+        {
+            "name": "type",
+            "type": "string"
+        },
+        {
+            "name": "photo",
+            "type": "string"
+        },
+        {
+            "name": "secret",
+            "type": "string"
+        },
+        {
+            "name": "status",
+            "type": "select",
+            "options": {
+                "Не проверено": "Не проверено",
+                "Принят": "Принят",
+                "Отклонен" : "Отклонен"
+            }
+        },
+        {
+            "name": "user_id",
+            "type": "integer#unsigned"
+        }
+    ],
+    "foreign_keys": [
+        {
+            "column": "user_id",
+            "references": "id",
+            "on": "users",
+            "onDelete": "cascade"
+        }
+    ],
+    "relationships": [
+        {
+            "name": "user",
+            "type": "belongsTo",
+            "class": "App\\User"
+        }
+    ]
+}
