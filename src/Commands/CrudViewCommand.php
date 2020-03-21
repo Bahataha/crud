@@ -337,6 +337,8 @@ class CrudViewCommand extends Command
         foreach ($this->formFields as $item) {
             $this->formFieldsHtml .= $this->createField($item);
         }
+        $this->trHeadingHtml = '';
+        $this->trBodyHtml = '';
         foreach ($this->formFields as $key => $value) {
             $field = $value['name'];
             $label = ucwords(str_replace('_', ' ', $field));
@@ -348,6 +350,8 @@ class CrudViewCommand extends Command
 
         }
         $i = 0;
+        $this->formHeadingHtml = '';
+        $this->formBodyHtml = '';
         foreach ($this->formFields as $key => $value) {
             if ($i == $this->defaultColumnsToShow) {
                 break;

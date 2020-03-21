@@ -23,7 +23,7 @@ class CrudTest extends Command
 
     public function handle()
     {
-        $this->call('crud:generate', ['name' => 'FAQ', '--fields_from_file' => 'duke/faq.json', '--view-path' => 'admin', '--controller-namespace' => 'Admin', '--route-group' => 'admin', '--form-helper' => 'html']);
+        $this->call('crud:generate', ['name' => 'Faq', '--fields_from_file' => 'duke/faq.json', '--view-path' => 'admin', '--controller-namespace' => 'Admin', '--route-group' => 'admin', '--form-helper' => 'html']);
         $this->call('crud:generate', ['name' => 'Checks', '--fields_from_file' => 'duke/checks.json', '--view-path' => 'admin', '--controller-namespace' => 'Admin', '--route-group' => 'admin', '--form-helper' => 'html']);
         $this->call('crud:generate', ['name' => 'Questions', '--fields_from_file' => 'duke/questions.json', '--view-path' => 'admin', '--controller-namespace' => 'Admin', '--route-group' => 'admin', '--form-helper' => 'html']);
         $this->call('crud:generate', ['name' => 'Winners', '--fields_from_file' => 'duke/winners.json', '--view-path' => 'admin', '--controller-namespace' => 'Admin', '--route-group' => 'admin', '--form-helper' => 'html']);
