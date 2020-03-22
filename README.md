@@ -1,8 +1,6 @@
 `````__`````# Laravel CRUD Generator
 
-[![Build Status](https://travis-ci.org/duke/crud-generator.svg?branch=master)](https://travis-ci.org/duke/crud-generator.svg?branch=master)
 [![Total Downloads](https://poser.pugx.org/duke/crud-generator/d/total.svg)](https://packagist.org/packages/duke/crud-generator)
-[![Latest Stable Version](https://poser.pugx.org/duke/crud-generator/v/stable.svg)](https://packagist.org/packages/duke/crud-generator)
 [![License](https://poser.pugx.org/duke/crud-generator/license.svg)](https://packagist.org/packages/duke/crud-generator)
 
 ## Installation

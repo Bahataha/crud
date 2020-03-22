@@ -504,3 +504,13 @@ input[name='created_at']{
     background: beige;
     margin-right: 25px;
 }
+.select-settings{
+    display: block;
+    height: 50px;
+    border-radius: 5px;
+    border: 1px solid #DEDEDE;
+    width: 100%;
+    padding: 10px 25px;
+    box-sizing: border-box;
+    background: #F9F9F9
+}

@@ -333,7 +333,7 @@ class CrudViewCommand extends Command
                 $x++;
             }
         }
-
+        $this->formFieldsHtml = '';
         foreach ($this->formFields as $item) {
             $this->formFieldsHtml .= $this->createField($item);
         }
@@ -363,7 +363,10 @@ class CrudViewCommand extends Command
                 $label = '{{ trans(\'' . $this->crudName . '.' . $field . '\') }}';
             }
             $this->formHeadingHtml .= '<th>' . $label . '</th>';
-            $this->formBodyHtml .= '<td>{{ $item->' . $field . ' }}</td>';
+            if($value['type'] != 'file')
+                $this->formBodyHtml .= '<td>{{ $item->' . $field . ' }}</td>';
+            else
+                $this->formBodyHtml .= '<td><a href="{{url(\'i/\'.$item->photo )}}" data-lightbox="image" data-title="Название">Посмотреть</a></td>';
             $this->formBodyHtmlForShowView .= '<tr><th> ' . $label . ' </th><td> {{ $%%crudNameSingular%%->' . $field . ' }} </td></tr>';
 
             $i++;

@@ -6,7 +6,7 @@
         },
         {
             "name": "photo",
-            "type": "string"
+            "type": "file"
         },
         {
             "name": "secret",

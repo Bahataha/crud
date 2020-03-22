@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="{{asset('css/remodal.css')}}">
     <link rel="stylesheet" href="{{asset('css/remodal-default-theme.css')}}">
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/lightbox.min.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href="https://fonts.googleapis.com/css?family=Roboto:100,400,500,700,900&display=swap" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
@@ -147,5 +148,6 @@
     });
 
 </script>
+<script src="{{ asset('js/lightbox.min.js') }}"></script>
 </body>
 </html>

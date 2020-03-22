@@ -40,6 +40,7 @@ class CrudGeneratorServiceProvider extends ServiceProvider
             __DIR__ . '/../publish/views/' => base_path('resources/views/'),
             __DIR__ . '/../publish/css/' => public_path('css/'),
             __DIR__ . '/../publish/js/' => public_path('js/'),
+            __DIR__ . '/../publish/images/' => public_path('images/'),
             __DIR__ . '/../publish/duke/' => base_path('/'),
             __DIR__ . '/stubs/' => base_path('resources/crud-generator/'),
             __DIR__ . '/../config/web.php' => base_path('routes/web.php'),

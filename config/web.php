@@ -25,4 +25,6 @@ Route::middleware(['auth'])->group(function() {
 Route::middleware(['auth', 'admin'])->group(function() {
     Route::get('admin', 'Admin\\AdminController@index');
     Route::get('admin/dashboard', 'Admin\\AdminController@index');
+    Route::get('admin/settings', 'Admin\\AdminController@settings');
+    Route::post('timezone', 'Admin\\AdminController@timezone');
 });
