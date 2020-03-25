@@ -28,6 +28,14 @@
 
                             <p><input class="btn-primary" type="submit" value="Изменить"></p>
                         </form>
+                        <form action="{{url('date')}}" method="post" style="margin-top: 30px">
+                            @csrf
+                            <label>Дата запуска проекта
+                                <input class="select-settings" name="time" type="date">
+                            </label>
+
+                            <p><input class="btn-primary" type="submit" value="Изменить"></p>
+                        </form>
                     </div>
                 </div>
             </div>

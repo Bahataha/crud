@@ -1,16 +1,8 @@
 {
     "fields": [
         {
-            "name": "type",
-            "type": "string"
-        },
-        {
             "name": "photo",
             "type": "file"
-        },
-        {
-            "name": "secret",
-            "type": "string"
         },
         {
             "name": "status",

@@ -17,6 +17,9 @@ Route::get('/', function () {
 
 Auth::routes();
 
+Route::middleware(['date'])->group(function() {
+    // Добавляем запускаемые ссылки
+});
 
 Route::middleware(['auth'])->group(function() {
     Route::get('/home', 'Admin\\AdminController@home');
@@ -27,4 +30,5 @@ Route::middleware(['auth', 'admin'])->group(function() {
     Route::get('admin/dashboard', 'Admin\\AdminController@index');
     Route::get('admin/settings', 'Admin\\AdminController@settings');
     Route::post('timezone', 'Admin\\AdminController@timezone');
+    Route::post('date', 'Admin\\AdminController@date');
 });

@@ -34,6 +34,9 @@ class DummyClass implements FromCollection, ShouldAutoSize, WithEvents, WithHead
             $date_to = Carbon::parse(explode('-', $this->filter)[1])->format('Y-m-d');
             $data = DummyModelClass::whereBetween('created_at', [$date_from.' 00:00:00', $date_to.' 23:59:59'])->get();
         }
+        foreach ($data as $item){
+            // Добавляем что хотим
+        }
         return $data;
     }
     public function headings(): array

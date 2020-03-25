@@ -21,6 +21,7 @@ in    app\Http\Kernel
 protected $routeMiddleware = [
     ...
     'admin' => \App\Http\Middleware\isAdmin::class,
+    'date' => \App\Http\Middleware\Date::class,
 ]
 ```
 ### Promo prject
