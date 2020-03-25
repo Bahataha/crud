@@ -16,7 +16,7 @@ Route::get('/', function () {
 });
 
 Auth::routes();
-
+Route::get('/restricted', 'Admin\\AdminController@restricted');
 Route::middleware(['date'])->group(function() {
     // Добавляем запускаемые ссылки
 });

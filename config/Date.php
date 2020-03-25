@@ -20,6 +20,6 @@ class Date
         if($myTime > "2020-12-03 00:00:00") {  // datetime
             return $next($request);
         }
-        return redirect('/date');
+        return redirect('/restrict');
     }
 }

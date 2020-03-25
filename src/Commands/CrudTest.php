@@ -2,7 +2,10 @@
 
 namespace Duke\CrudGenerator\Commands;
 
+use Carbon\Carbon;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class CrudTest extends Command
 {
@@ -31,5 +34,7 @@ class CrudTest extends Command
         $this->call('crud:export', ['name' => 'UsersExport', '--model' => 'User', '--fillable' => "['name', 'email']"]);
         $this->call('crud:import', ['name' => 'UsersImport', '--model' => 'User', '--fillable' => "['name', 'email']"]);
         $this->call('crud:view', ['name' => 'Users', '--fields' => 'name#string;email#string;type#string', '--view-path' => 'admin', '--route-group' => 'admin', '--localize' => 'no', '--pk' => 'id', '--form-helper' => 'html']);
+        $this->call('migrate');
+        DB::table('users')->insert(['name' => 'admin', 'type' => 'admin', 'email' => 'admin@pg.kz', 'password' => Hash::make('123321aA'), 'created_at' => Carbon::now()]);
     }
 }

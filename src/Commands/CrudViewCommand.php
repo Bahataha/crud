@@ -363,10 +363,10 @@ class CrudViewCommand extends Command
                 $label = '{{ trans(\'' . $this->crudName . '.' . $field . '\') }}';
             }
             $this->formHeadingHtml .= '<th>' . $label . '</th>';
-            if($value['type'] != 'file')
+            if($value['type'] != 'file' && $this->crudName != 'checks')
                 $this->formBodyHtml .= '<td>{{ $item->' . $field . ' }}</td>';
             else
-                $this->formBodyHtml .= '<td><a href="{{url(\'i/\'.$item->photo )}}" data-lightbox="image" data-title="Название">Посмотреть</a></td>';
+                $this->formBodyHtml .= '<td><a href="{{url(\'i/\'.$item->photo )}}" data-lightbox="image" data-title="{{$item->phone}} / {{$item->status}}">Посмотреть</a></td>';
             $this->formBodyHtmlForShowView .= '<tr><th> ' . $label . ' </th><td> {{ $%%crudNameSingular%%->' . $field . ' }} </td></tr>';
 
             $i++;

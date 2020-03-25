@@ -5,6 +5,10 @@
             "type": "file"
         },
         {
+            "name": "phone",
+            "type": "string"
+        },
+        {
             "name": "status",
             "type": "select",
             "options": {

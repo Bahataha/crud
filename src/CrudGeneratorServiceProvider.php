@@ -37,6 +37,7 @@ class CrudGeneratorServiceProvider extends ServiceProvider
             __DIR__ . '/../config/AppServiceProvider.php' => base_path('app/Providers/AppServiceProvider.php'),
             __DIR__ . '/../config/AdminController.php' => base_path('app/Http/Controllers/Admin/AdminController.php'),
             __DIR__ . '/../config/isAdmin.php' => base_path('app/Http/Middleware/isAdmin.php'),
+            __DIR__ . '/../config/Date.php' => base_path('app/Http/Middleware/Date.php'),
             __DIR__ . '/../publish/views/' => base_path('resources/views/'),
             __DIR__ . '/../publish/css/' => public_path('css/'),
             __DIR__ . '/../publish/js/' => public_path('js/'),
